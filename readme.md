@@ -1,6 +1,8 @@
 ## Prérequis
 - Git [Windows](http://www.git-scm.com/book/en/Getting-Started-Installing-Git#Installing-on-Windows), [Mac](http://www.git-scm.com/book/en/Getting-Started-Installing-Git#Installing-on-Mac), [Linux](http://www.git-scm.com/book/en/Getting-Started-Installing-Git#Installing-on-Linux)
 - [Node.js](https://nodejs.org/en/) (version LTS recommandée)
+- [Docker](https://www.docker.com/get-started)
+- [Python](https://www.python.org/downloads/)
 
 Vérifier que Node est installé avec la commande:
 ```bash
