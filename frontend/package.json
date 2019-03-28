@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "prettier": "^1.16.4",
-    "vue": "^2.6.6"
+    "vue": "^2.6.6",
+    "vuetify": "^1.5.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
