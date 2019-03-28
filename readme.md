@@ -1,4 +1,4 @@
-## Prérequis
+## Prérequis et doc interessante
 - Git [Windows](http://www.git-scm.com/book/en/Getting-Started-Installing-Git#Installing-on-Windows), [Mac](http://www.git-scm.com/book/en/Getting-Started-Installing-Git#Installing-on-Mac), [Linux](http://www.git-scm.com/book/en/Getting-Started-Installing-Git#Installing-on-Linux)
 - [Node.js](https://nodejs.org/en/) (version LTS recommandée)
 - [Docker](https://www.docker.com/get-started)
@@ -12,6 +12,8 @@ Vérifier que Node est installé avec la commande:
 ```bash
 npm -v
 ```
+
+Documentation de [Vuetify](https://vuetifyjs.com/en/components/api-explorer)
 
 # Flask Application on Docker
 
