@@ -6,7 +6,9 @@
           @click.stop="drawer = !drawer"
           class="hidden-sm-and-up"
         ></v-toolbar-side-icon>
-        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-toolbar-title>
+          <router-link to="/" class="v-toolbar__title">{{ title }}</router-link>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
           <v-btn flat>
@@ -28,7 +30,11 @@
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
-        <v-list-tile v-for="item in items" :key="item.title" @click="">
+        <v-list-tile
+          v-for="item in items"
+          :key="item.title"
+          :to="{ path: item.route }"
+        >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -48,11 +54,11 @@ export default {
     return {
       drawer: false,
       items: [
-        { title: "Home", icon: "dashboard" },
-        { title: "Search", icon: "search" },
-        { title: "All Cities", icon: "location_city" },
-        { title: "Sign Up", icon: "assignment_ind" },
-        { title: "Log In", icon: "input" }
+        { title: "Home", icon: "dashboard", route: "" },
+        { title: "Search", icon: "search", route: "" },
+        { title: "All Cities", icon: "location_city", route: "" },
+        { title: "Sign Up", icon: "assignment_ind", route: "" },
+        { title: "Log In", icon: "input", route: "" }
       ]
     };
   },
@@ -63,4 +69,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-toolbar__title {
+  color: black;
+  text-decoration: none;
+}
+</style>
