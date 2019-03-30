@@ -54,9 +54,9 @@ export default {
     return {
       drawer: false,
       items: [
-        { title: "Home", icon: "dashboard", route: "" },
+        { title: "Home", icon: "dashboard", route: "/" },
         { title: "Search", icon: "search", route: "" },
-        { title: "All Cities", icon: "location_city", route: "" },
+        { title: "All Cities", icon: "location_city", route: "/cities" },
         { title: "Sign Up", icon: "assignment_ind", route: "" },
         { title: "Log In", icon: "input", route: "" }
       ]

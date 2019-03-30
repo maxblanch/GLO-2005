@@ -10,6 +10,11 @@ export default new Router({
       path: "/",
       name: "HomeView",
       component: HomeView
+    },
+    {
+      path: "/cities",
+      name: "CitiesView",
+      component: () => import("@/components/CitiesView")
     }
   ]
 });
