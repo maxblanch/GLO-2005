@@ -1,5 +1,5 @@
 <template>
-  <div class="Home">
+  <div class="HomeView">
     <v-layout wrap style="height: 370px">
       <v-container>
         <v-layout justify-center>
@@ -17,11 +17,10 @@
 </template>
 
 <script>
-import ToolBarVue from "./ToolBarVue";
-import SearchBar from "./SearchBarVue";
+import SearchBar from "./SearchBar";
 export default {
-  name: "HomeVue",
-  components: { SearchBar, ToolBarVue }
+  name: "HomeView",
+  components: { SearchBar }
 };
 </script>
 

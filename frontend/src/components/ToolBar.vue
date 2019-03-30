@@ -62,7 +62,7 @@ export default {
       ]
     };
   },
-  name: "ToolBarVue",
+  name: "ToolBar",
   props: {
     title: String
   }
