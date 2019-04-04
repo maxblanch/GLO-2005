@@ -22,6 +22,7 @@ Documentation de [Vuetify](https://vuetifyjs.com/en/components/api-explorer)
 3. "docker-compose up"
 
 # Frontend
+from the `frontend` folder
 ## Installation
 
 ```bash
