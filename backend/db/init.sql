@@ -1,4 +1,4 @@
-USE CONNECTD;
+USE WeShare;
 
 CREATE TABLE `Coworker`
 (

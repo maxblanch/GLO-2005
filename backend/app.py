@@ -1,13 +1,22 @@
 from flask import Flask
-import pymysql.cursors
+from mysql.connector import connect
 app = Flask(__name__)
 
-connection = pymysql.connect(host='mysql',
+config = {
+    'user': 'root',
+    'password': 'glo2005',
+    'host': 'localhost',
+    'database': 'WeShare',
+    'port': '3306'
+}
+
+cnx = connect(**config)
+""" connection = pymysql.connect(host='mysql',
                              user='root',
                              password='glo2005',
                              db='CONNECTD',
                              charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+                             cursorclass=pymysql.cursors.DictCursor) """
 
 @app.route('/')
 def hello():
