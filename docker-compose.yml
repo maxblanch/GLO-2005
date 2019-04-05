@@ -1,19 +1,19 @@
 version: '3'
 
 services: 
-  flask:
-    build:
-      context: ./backend/
-      dockerfile: Dockerfile
-    ports: 
-      - 80:5000
-    volumes:
-      - ./backend/src:/app
-    restart: always
-    depends_on:
-      - mysql
-    links:
-      - mysql
+#  flask:
+#    build:
+#      context: ./backend/
+#      dockerfile: Dockerfile
+#    ports: 
+#      - 80:5000
+#    volumes:
+#      - ./backend/src:/app
+#    restart: always
+#    depends_on:
+#      - mysql
+#    links:
+#      - mysql
     
   mysql:
     build:
@@ -22,8 +22,10 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_DATABASE: "CONNECTD"
+      MYSQL_DATABASE: "WeShare"
       MYSQL_ROOT_PASSWORD: "glo2005"
+    ports:
+      - 3306:3306
     volumes:
       - flask-data:/var/lib/mysql
 
