@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from mysql.connector import MySQLConnection, Error
 from controllers.coworking_space import CoworkingSpace
 from controllers.coworker import Coworker
+from controllers.manager import Manager
 
 app = Flask(__name__)
 
@@ -53,6 +54,16 @@ def get_coworkers():
 @app.route('/coworker/<id>', methods=['GET'])
 def get_coworker(id):
     return Coworker().get_coworker(id)
+
+
+# Manager Routes
+@app.route('/managers', methods=['GET'])
+def get_managers():
+    return Manager().get_all_managers()
+
+@app.route('/managers/<id>', methods=['GET'])
+def get_manager(id):
+    return Manager().get_manager(id)
 
 
 if __name__ == '__main__':
