@@ -28,6 +28,7 @@ Pour l'instant, seulement mysql est instancié en tant que container Docker. Don
 8. pipenv shell
 9. pipenv install
 11. python app.py
+
 # Frontend
 from the `frontend` folder
 ## Installation
