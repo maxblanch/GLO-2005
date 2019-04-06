@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from mysql.connector import MySQLConnection, Error
 from controllers.coworking_space import CoworkingSpace
+from controllers.coworker import Coworker
 
 app = Flask(__name__)
 
@@ -34,6 +35,7 @@ def hello():
     db = CoworkingSpace()
     return "Hello World from Docker!!!!"
 
+# Coworking spaces Routes
 @app.route('/cwspaces', methods=['GET'])
 def get_cwspaces():
     return CoworkingSpace().get_all_cwspaces()
@@ -41,6 +43,17 @@ def get_cwspaces():
 @app.route('/cwspaces/<id>', methods=['GET'])
 def get_cwspace(id):
     return CoworkingSpace().get_cwspace(id)
+
+
+# Coworkers Routes
+@app.route('/coworkers', methods=['GET'])
+def get_coworkers():
+    return Coworker().get_all_coworker()
+
+@app.route('/coworker/<id>', methods=['GET'])
+def get_coworker(id):
+    return Coworker().get_coworker(id)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
