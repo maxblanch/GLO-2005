@@ -3,6 +3,7 @@ from mysql.connector import MySQLConnection, Error
 from controllers.coworking_space import CoworkingSpace
 from controllers.coworker import Coworker
 from controllers.manager import Manager
+from controllers.review import Review
 
 app = Flask(__name__)
 
@@ -64,6 +65,16 @@ def get_managers():
 @app.route('/managers/<id>', methods=['GET'])
 def get_manager(id):
     return Manager().get_manager(id)
+
+
+# Reviews Routes
+@app.route('/reviews', methods=['GET'])
+def get_reviews():
+    return Review().get_reviews()
+
+@app.route('/reviews/<cws_id>_<coworker_id>')
+def get_review(cws_id, coworker_id):
+    return Review().get_review(cws_id, coworker_id)
 
 
 if __name__ == '__main__':
