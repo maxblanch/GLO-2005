@@ -20,7 +20,7 @@ class CoworkingSpace:
         except Error as e:
             print(e)
 
-    def get_all_cwspaces(self):
+    def get_cwspaces(self):
         try:
             cursor = self.conn.cursor()
             cursor.execute("SELECT * FROM CoworkingSpace")

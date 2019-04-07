@@ -20,7 +20,7 @@ class Coworker:
         except Error as e:
             print(e)
 
-    def get_all_coworker(self):
+    def get_coworkers(self):
         try:
             cursor = self.conn.cursor()
             cursor.execute("SELECT * FROM Coworker")

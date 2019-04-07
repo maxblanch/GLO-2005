@@ -20,7 +20,7 @@ class Manager:
         except Error as e:
             print(e)
 
-    def get_all_managers(self):
+    def get_managers(self):
         try:
             cursor = self.conn.cursor()
             cursor.execute("SELECT * FROM Manager")
