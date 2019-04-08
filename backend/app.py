@@ -20,7 +20,7 @@ app.config['JWT_SECRET_KEY'] = 'glo2005'
 api = Api(app)
 
 jwt = JWTManager(app)
-@app.route('/login', methods=['POST'])
+@app.route('/auth/login', methods=['POST'])
 def login():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400

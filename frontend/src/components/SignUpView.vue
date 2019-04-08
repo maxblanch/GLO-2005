@@ -4,7 +4,7 @@
       <v-flex xs12 sm4 elevation-6>
         <v-toolbar class="pt-5 primary darken-1">
           <v-toolbar-title class="white--text"
-            ><h4>Welcome Home, Ashen One</h4></v-toolbar-title
+            ><h4>Welcome to the family, son!</h4></v-toolbar-title
           >
         </v-toolbar>
         <v-card>
@@ -12,13 +12,25 @@
             <div>
               <v-form v-model="valid" ref="form">
                 <v-text-field
-                  label="Enter your WeShare username"
+                  label="First name"
+                  v-model="firstName"
+                  :rules="firstNameRules"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  label="Last name"
+                  v-model="lastName"
+                  :rules="lastNameRules"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  label="Username"
                   v-model="username"
                   :rules="usernameRules"
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Enter your password"
+                  label="Password"
                   v-model="password"
                   min="8"
                   :append-icon="e1 ? 'visibility' : 'visibility_off'"
@@ -31,15 +43,12 @@
 
                 <v-layout justify-space-between>
                   <v-btn
-                    @click="login"
+                    @click="signup"
                     :class="{
                       'primary white--text': valid,
                       disabled: !valid
                     }"
-                    >Login</v-btn
-                  >
-                  <router-link to="/signup"
-                    >You don't already have an account?</router-link
+                    >Sign Up</v-btn
                   >
                 </v-layout>
               </v-form>
@@ -53,11 +62,15 @@
 
 <script>
 export default {
-  name: "LogInView",
+  name: "SignUpView",
   data() {
     return {
       valid: false,
       e1: false,
+      firstName: "Saucy",
+      firstNameRules: [v => !!v || "First name is required"],
+      lastName: "Jack",
+      lastNameRules: [v => !!v || "Last name is required"],
       password: "sekiro",
       passwordRules: [v => !!v || "Password is required"],
       username: "Ashen One",
@@ -70,7 +83,7 @@ export default {
     };
   },
   methods: {
-    login() {
+    signup() {
       let user = { username: this.username, password: this.password };
       console.log(`connecting user ${user.username}`);
       this.$auth

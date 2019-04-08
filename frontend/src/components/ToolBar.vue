@@ -15,12 +15,10 @@
             <v-icon left>question_answer</v-icon>
             <span>About</span>
           </v-btn>
-          <!--          <v-btn flat @click="register()">-->
-          <v-btn flat>
+          <v-btn flat to="/signup">
             <v-icon left>assignment_ind</v-icon>
             <span>Sign Up</span>
           </v-btn>
-          <!--          <v-btn flat @click="login()">-->
           <v-btn flat to="/login">
             <v-icon left>input</v-icon>
             <span>Log In</span>

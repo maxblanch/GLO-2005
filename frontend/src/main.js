@@ -22,8 +22,7 @@ Vue.use(Vuetify, {
 });
 Vue.use(VueAxios, axios);
 Vue.use(VueAuthenticate, {
-  baseUrl: "http://localhost:5000", // API domain
-  loginUrl: "/login"
+  baseUrl: "http://localhost:5000" // API domain
   // providers: {
   // //Define OAuth providers config
   //   github: {
