@@ -15,11 +15,11 @@
             <v-icon left>question_answer</v-icon>
             <span>About</span>
           </v-btn>
-          <v-btn flat>
+          <v-btn flat @click="register()">
             <v-icon left>assignment_ind</v-icon>
             <span>Sign Up</span>
           </v-btn>
-          <v-btn flat>
+          <v-btn flat @click="login()">
             <v-icon left>input</v-icon>
             <span>Log In</span>
           </v-btn>
@@ -56,8 +56,16 @@ export default {
       items: [
         { title: "Home", icon: "dashboard", route: "/" },
         { title: "Search", icon: "search", route: "" },
-        { title: "All Cities", icon: "location_city", route: "/cities" },
-        { title: "Sign Up", icon: "assignment_ind", route: "" },
+        {
+          title: "All Cities",
+          icon: "location_city",
+          route: "/cities"
+        },
+        {
+          title: "Sign Up",
+          icon: "assignment_ind",
+          route: ""
+        },
         { title: "Log In", icon: "input", route: "" }
       ]
     };
@@ -65,6 +73,25 @@ export default {
   name: "ToolBar",
   props: {
     title: String
+  },
+  methods: {
+    login: () => {
+      this.$auth.login({ email, password }).then(() => {
+        // Execute application logic after successful login
+      });
+    },
+    register: () => {
+      this.drawer = !this.drawer;
+      alert("asdsad");
+      this.$auth.register({ name, email, password }).then(() => {
+        // Execute application logic after successful registration
+      });
+    },
+    authenticate: provider => {
+      this.$auth.authenticate(provider).then(() => {
+        // Execute application logic after successful social authentication
+      });
+    }
   }
 };
 </script>
