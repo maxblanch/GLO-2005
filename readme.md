@@ -29,6 +29,12 @@ Pour l'instant, seulement mysql est instancié en tant que container Docker. Don
 9. pipenv install
 11. python app.py
 
+## Important : À chaque pull de master, il est préférable de recréer les containers afin d'avoir les images les plus récentes. Seulement ces étapes peuvent vous assurer d'avoir les bonnes versions :
+
+1. cd dans root
+2. docker-compose down -v
+3. docker-compose up --build
+
 # Frontend
 from the `frontend` folder
 ## Installation
