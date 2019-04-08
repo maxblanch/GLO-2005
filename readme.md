@@ -20,23 +20,25 @@ Documentation de [Vuetify](https://vuetifyjs.com/en/components/api-explorer)
 Pour l'instant, seulement mysql est instancié en tant que container Docker. Donc, python roule localement pour l'application flask.
 1. Clone repo
 2. cd dans root
-3. "docker-compose up"
+3. `docker-compose up`
 4. Si tout va bien, on devrait voir la dernère ligne dans le terminal : `X Plugin ready for connections. Socket: '/var/run/mysqld/mysqlx.sock' bind-address: '::' port: 33060`
 5. cd ./backend
 6. S'assurer d'avoir Python >= 3
-7. pip3 install pipenv (C'est le npm pour Python)
-8. pipenv shell
-9. pipenv install
-11. python app.py
+7. `pip3 install pipenv` (C'est le npm pour Python)
+8. `pipenv shell`
+9. `pipenv install`
+11. `python app.py`
 
 ## Important : À chaque pull de master, il est préférable de recréer les containers afin d'avoir les images les plus récentes. Seulement ces étapes peuvent vous assurer d'avoir les bonnes versions :
 
 1. cd dans root
-2. docker-compose down -v
-3. docker-compose up --build
+2. `docker-compose down -v`
+3. `docker-compose up --build`
 
 # Frontend
-from the `frontend` folder
+>Généré à partir du wizard du Webstorm pour un projet Vue.js avec vue-router.
+
+cd in ./frontend
 ## Installation
 
 ```bash
