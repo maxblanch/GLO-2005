@@ -15,11 +15,13 @@
             <v-icon left>question_answer</v-icon>
             <span>About</span>
           </v-btn>
-          <v-btn flat @click="register()">
+          <!--          <v-btn flat @click="register()">-->
+          <v-btn flat>
             <v-icon left>assignment_ind</v-icon>
             <span>Sign Up</span>
           </v-btn>
-          <v-btn flat @click="login()">
+          <!--          <v-btn flat @click="login()">-->
+          <v-btn flat to="/login">
             <v-icon left>input</v-icon>
             <span>Log In</span>
           </v-btn>
@@ -55,7 +57,7 @@ export default {
       drawer: false,
       items: [
         { title: "Home", icon: "dashboard", route: "/" },
-        { title: "Search", icon: "search", route: "" },
+        { title: "Search", icon: "search", route: "/search" },
         {
           title: "All Cities",
           icon: "location_city",
@@ -64,41 +66,40 @@ export default {
         {
           title: "Sign Up",
           icon: "assignment_ind",
-          route: ""
+          route: "/signup"
         },
-        { title: "Log In", icon: "input", route: "" }
+        { title: "Log In", icon: "input", route: "/login" }
       ]
     };
   },
   name: "ToolBar",
   props: {
     title: String
-  },
-  methods: {
-    login: () => {
-      this.$auth.login({ email, password }).then(() => {
-        // Execute application logic after successful login
-      });
-    },
-    register: () => {
-      this.drawer = !this.drawer;
-      alert("asdsad");
-      this.$auth.register({ name, email, password }).then(() => {
-        // Execute application logic after successful registration
-      });
-    },
-    authenticate: provider => {
-      this.$auth.authenticate(provider).then(() => {
-        // Execute application logic after successful social authentication
-      });
-    }
   }
+  // methods: {
+  //   login: () => {
+  //     this.$auth.login({ email, password }).then(() => {
+  //       // Execute application logic after successful login
+  //     });
+  //   },
+  //   register: () => {
+  //     this.drawer = !this.drawer;
+  //     alert("asdsad");
+  //     this.$auth.register({ name, email, password }).then(() => {
+  //       // Execute application logic after successful registration
+  //     });
+  //   },
+  //   authenticate: provider => {
+  //     this.$auth.authenticate(provider).then(() => {
+  //       // Execute application logic after successful social authentication
+  //     });
+  //   }
+  // }
 };
 </script>
 
 <style scoped>
 .v-toolbar__title {
-  color: black;
   text-decoration: none;
 }
 </style>

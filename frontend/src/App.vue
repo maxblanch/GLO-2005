@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <ToolBar title="un titre" />
+  <v-app id="app" dark>
+    <ToolBar title="WeShare" />
     <router-view />
-  </div>
+  </v-app>
 </template>
 
 <script>
