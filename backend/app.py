@@ -1,7 +1,10 @@
+from mysql.connector import MySQLConnection, Error
 from flask import Flask, request, jsonify
 from flask_restful import Api
-from flask_jwt import JWT
-from mysql.connector import MySQLConnection, Error
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from security import user_login
+
+# Imports of RESTful Api routes Ressources
 from resources.coworker import Coworkers, Coworker, CoworkerRegister
 from resources.manager import Managers, Manager, ManagerRegister
 from resources.cwspace import Cwspaces, Cwspace
@@ -11,9 +14,30 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:glo2005@localhost:3306/WeShare'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
-app.secret_key = 'glo2005'
+app.config['JWT_SECRET_KEY'] = 'glo2005'
 api = Api(app)
 
+jwt = JWTManager(app)
+@app.route('/login', methods=['POST'])
+def login():
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    if not username:
+        return jsonify({"msg": "Missing username parameter"}), 400
+    if not password:
+        return jsonify({"msg": "Missing password parameter"}), 400
+
+    user =  user_login(username, password)
+    if not user:
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    # Identity can be any data that is json serializable
+    access_token = create_access_token(identity=username)
+    if (user[0] == 'coworker'): return jsonify(coworker_id=user[1].coworker_id ,access_token=access_token), 200
+    if (user[0] == 'manager'): return jsonify(manager_id=user[1].manager_id ,access_token=access_token), 200
 
 api.add_resource(Coworkers, '/coworkers')
 api.add_resource(Coworker, '/coworker/<int:id>')

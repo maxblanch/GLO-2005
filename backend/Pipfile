@@ -12,8 +12,8 @@ pylint = "*"
 flask-sqlalchemy = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
-flask-jwt = "*"
 flask-restful = "*"
+flask-jwt-extended = "*"
 
 [requires]
 python_version = "3.7"
