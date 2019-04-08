@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
 import Vuetify from "vuetify";
-import colors from "vuetify/es5/util/colors";
 
 import "vuetify/dist/vuetify.min.css"; // Ensure you are using css-loader
 import App from "./App";
@@ -12,7 +11,6 @@ import VueAuthenticate from "vue-authenticate";
 import axios from "axios";
 
 Vue.config.productionTip = false;
-// Vue.use(Vuetify);
 
 Vue.use(Vuetify, {
   theme: {
@@ -24,8 +22,10 @@ Vue.use(Vuetify, {
 });
 Vue.use(VueAxios, axios);
 Vue.use(VueAuthenticate, {
-  baseUrl: "http://localhost:5000/" // API domain
+  baseUrl: "http://localhost:5000", // API domain
+  loginUrl: "/login"
   // providers: {
+  // //Define OAuth providers config
   //   github: {
   //     clientId: "",
   //     redirectUri: "http://localhost:8080/cities" // client app callback

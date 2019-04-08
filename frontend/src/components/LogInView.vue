@@ -2,7 +2,7 @@
   <v-container fluid fill-height>
     <v-layout flex align-center justify-center>
       <v-flex xs12 sm4 elevation-6>
-        <v-toolbar class="pt-5">
+        <v-toolbar class="pt-5 primary darken-1">
           <v-toolbar-title class="white--text"
             ><h4>Welcome Back</h4></v-toolbar-title
           >
@@ -12,9 +12,9 @@
             <div>
               <v-form v-model="valid" ref="form">
                 <v-text-field
-                  label="Enter your e-mail address"
-                  v-model="email"
-                  :rules="emailRules"
+                  label="Enter your WeShare username"
+                  v-model="username"
+                  :rules="usernameRules"
                   required
                 ></v-text-field>
                 <v-text-field
@@ -31,14 +31,16 @@
 
                 <v-layout justify-space-between>
                   <v-btn
-                    @click="login()"
+                    @click="login"
                     :class="{
-                      'blue darken-4 white--text': valid,
+                      'primary white--text': valid,
                       disabled: !valid
                     }"
                     >Login</v-btn
                   >
-                  <a href="">Forgot Password</a>
+                  <router-link to="/signup"
+                    >You don't already have an account?</router-link
+                  >
                 </v-layout>
               </v-form>
             </div>
@@ -56,35 +58,26 @@ export default {
     return {
       valid: false,
       e1: false,
-      password: "",
+      password: "sekiro",
       passwordRules: [v => !!v || "Password is required"],
-      email: "",
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v =>
-          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          "E-mail must be valid"
+      username: "Ashen One",
+      usernameRules: [
+        v => !!v || "Username is required"
+        // v =>
+        //   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+        //   "E-mail must be valid"
       ]
     };
   },
   methods: {
-    login: () => {
-      this.$auth.login({ email, password }).then(() => {
+    login() {
+      let user = { username: this.username, password: this.password };
+      console.log(`connecting user ${user.username}`);
+      this.$auth.login(user).then(res => {
+        console.log(res);
         // Execute application logic after successful login
       });
     }
-    // register: () => {
-    //   this.drawer = !this.drawer;
-    //   alert("asdsad");
-    //   this.$auth.register({ name, email, password }).then(() => {
-    //     // Execute application logic after successful registration
-    //   });
-    // },
-    // authenticate: provider => {
-    //   this.$auth.authenticate(provider).then(() => {
-    //     // Execute application logic after successful social authentication
-    //   });
-    // }
   }
 };
 </script>
