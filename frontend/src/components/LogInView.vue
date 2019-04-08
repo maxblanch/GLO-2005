@@ -73,10 +73,15 @@ export default {
     login() {
       let user = { username: this.username, password: this.password };
       console.log(`connecting user ${user.username}`);
-      this.$auth.login(user).then(res => {
-        console.log(res);
-        // Execute application logic after successful login
-      });
+      this.$auth
+        .login(user)
+        .then(res => {
+          console.log(res);
+          // Execute application logic after successful login
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
