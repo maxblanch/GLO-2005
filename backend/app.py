@@ -24,16 +24,12 @@ app.config['JWT_SECRET_KEY'] = 'glo2005'
 api = Api(app)
 
 jwt = JWTManager(app)
-<<<<<<< feature/Login
-
-=======
 
 @app.errorhandler(ValidationError)
 def handle_marshmallow_validation(err):
     return jsonify(err.messages), 400
 
 api.add_resource(UserLogin, '/login')
->>>>>>> master
 
 api.add_resource(Coworkers, '/coworkers')
 api.add_resource(Coworker, '/coworker/<int:id>')
