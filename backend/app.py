@@ -17,10 +17,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:glo2005@localhost:3306/WeShare'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
-app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = [
-    "access",
-    "refresh",
-]
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600
 app.config['JWT_SECRET_KEY'] = 'glo2005'
 api = Api(app)
 
