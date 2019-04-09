@@ -39,10 +39,11 @@ class Cwspaces(Resource):
 
 class CwspacesSearch(Resource):
     def get(self, query):
-        cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
-        results = CoworkingSpacesModel.find_by_name_city_state_country(query)
-        results = cwspaces_schema.dump(results)
-        return jsonify(results.data)
+        if (len(query) >= 3):
+            cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
+            results = CoworkingSpacesModel.find_by_name_city_state_country(query)
+            results = cwspaces_schema.dump(results)
+            return jsonify(results.data)
         # return {'data': list(map(lambda x: x.json(), CoworkingSpacesModel.find_by_country(query)))}
 
 class Cwspace(Resource):
