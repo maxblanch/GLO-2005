@@ -1,4 +1,4 @@
-from db import db
+from db import db, ma
 import hashlib
 
 class ReviewModel(db.Model):
@@ -38,3 +38,8 @@ class ReviewModel(db.Model):
             'cws_id': self.cws_id,
             'coworker_id': self.coworker_id
         }
+
+
+class ReviewSchema(ma.Schema):
+    class Meta:
+        fields = ('title', 'comment', 'rating', 'cws_id', 'coworker_id')
