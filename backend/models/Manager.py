@@ -1,4 +1,4 @@
-from db import db
+from db import db, ma
 import hashlib
 
 class ManagerModel(db.Model):
@@ -65,3 +65,9 @@ class ManagerModel(db.Model):
             'country': self.country,
             'Password': self.password
         }
+
+
+class ManagerSchema(ma.Schema):
+    class Meta:
+        fields = ('username', 'password')
+        dump_only = ('id')
