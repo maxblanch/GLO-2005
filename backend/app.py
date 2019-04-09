@@ -7,7 +7,7 @@ from security import user_login
 # Imports of RESTful Api routes Ressources
 from resources.coworker import Coworkers, Coworker, CoworkerRegister
 from resources.manager import Managers, Manager, ManagerRegister
-from resources.cwspace import Cwspaces, Cwspace
+from resources.cwspace import Cwspaces, Cwspace, CwspacesSearch
 from resources.review import Reviews, Review
 
 app = Flask(__name__)
@@ -39,6 +39,7 @@ def login():
     if (user[0] == 'coworker'): return jsonify(coworker_id=user[1].coworker_id ,access_token=access_token), 200
     if (user[0] == 'manager'): return jsonify(manager_id=user[1].manager_id ,access_token=access_token), 200
 
+
 api.add_resource(Coworkers, '/coworkers')
 api.add_resource(Coworker, '/coworker/<int:id>')
 api.add_resource(CoworkerRegister, '/coworker/register')
@@ -48,12 +49,14 @@ api.add_resource(Manager, '/manager/<int:id>')
 api.add_resource(ManagerRegister, '/manager/register')
 
 api.add_resource(Cwspaces, '/cwspaces')
+api.add_resource(CwspacesSearch, '/cwspaces/<string:query>')
 api.add_resource(Cwspace, '/cwspace/<int:id>')
 
 api.add_resource(Reviews, '/reviews')
 api.add_resource(Review, '/review/<int:cws_id>_<int:coworker_id>')
 
 if __name__ == '__main__':
-    from db import db
+    from db import db, ma
     db.init_app(app)
+    ma.init_app(app)
     app.run(debug=True, port=5000)
