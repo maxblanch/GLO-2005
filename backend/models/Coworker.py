@@ -1,4 +1,4 @@
-from db import db
+from db import db, ma
 import hashlib
 
 class CoworkerModel(db.Model):
@@ -65,3 +65,9 @@ class CoworkerModel(db.Model):
             'country': self.country,
             'Password': self.password
         }
+
+
+class CoworkerSchema(ma.Schema):
+    class Meta:
+        fields = ('username', 'password')
+        dump_only = ('id')
