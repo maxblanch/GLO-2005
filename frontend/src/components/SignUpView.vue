@@ -12,18 +12,6 @@
             <div>
               <v-form v-model="valid" ref="form">
                 <v-text-field
-                  label="First name"
-                  v-model="firstName"
-                  :rules="firstNameRules"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="Last name"
-                  v-model="lastName"
-                  :rules="lastNameRules"
-                  required
-                ></v-text-field>
-                <v-text-field
                   label="Username"
                   v-model="username"
                   :rules="usernameRules"
@@ -40,7 +28,35 @@
                   counter
                   required
                 ></v-text-field>
-
+                <v-text-field
+                  label="First name"
+                  v-model="firstName"
+                  :rules="firstNameRules"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  label="Last name"
+                  v-model="lastName"
+                  :rules="lastNameRules"
+                  required
+                ></v-text-field>
+                <v-select
+                  v-model="country"
+                  :items="countries"
+                  :rules="countryRules"
+                  menu-props="auto"
+                  label="Country"
+                  hide-details
+                  single-line
+                ></v-select>
+                <v-radio-group row v-model="gender" :rules="genderRules">
+                  <v-radio label="Male" value="Male" color="primary"></v-radio>
+                  <v-radio
+                    label="Female"
+                    value="Female"
+                    color="primary"
+                  ></v-radio>
+                </v-radio-group>
                 <v-layout justify-space-between>
                   <v-btn
                     @click="signup"
@@ -61,33 +77,54 @@
 </template>
 
 <script>
+import { countries } from "../assets/countries";
+
 export default {
   name: "SignUpView",
   data() {
     return {
       valid: false,
       e1: false,
-      firstName: "Saucy",
-      firstNameRules: [v => !!v || "First name is required"],
-      lastName: "Jack",
-      lastNameRules: [v => !!v || "Last name is required"],
-      password: "sekiro",
-      passwordRules: [v => !!v || "Password is required"],
+
       username: "Ashen One",
       usernameRules: [
         v => !!v || "Username is required"
         // v =>
         //   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
         //   "E-mail must be valid"
-      ]
+      ],
+      password: "sekiro",
+      passwordRules: [v => !!v || "Password is required"],
+      firstName: "Saucy",
+      firstNameRules: [v => !!v || "First name is required"],
+      lastName: "Jack",
+      lastNameRules: [v => !!v || "Last name is required"],
+      country: "Canada",
+      countryRules: [v => !!v || "Country is required"],
+      gender: "",
+      genderRules: [v => !!v || "Gender is required"],
+      countries: countries
     };
   },
   methods: {
     signup() {
-      let user = { username: this.username, password: this.password };
-      console.log(`connecting user ${user.username}`);
+      let user = {
+        username: this.username,
+        password: this.password,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        gender: this.gender,
+        country: this.country
+      };
+      console.log(`registering user \n
+      ${user.username}\n
+      ${user.password}\n
+      ${user.first_name}\n
+      ${user.last_name}\n
+      ${user.gender}\n
+      ${user.country}\n`);
       this.$auth
-        .login(user)
+        .register(user)
         .then(res => {
           console.log(res);
           alert(res);
