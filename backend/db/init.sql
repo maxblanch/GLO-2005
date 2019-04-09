@@ -36,7 +36,7 @@ CREATE TABLE `Manager`
 
 CREATE TABLE `CoworkingSpace`
 (
-  `cws_id`      integer NOT NULL ,
+  `cws_id`      integer NOT NULL AUTO_INCREMENT,
   `name`        varchar(45) NOT NULL ,
   `address`     varchar(45) NOT NULL ,
   `image_url`   varchar(2083) ,
@@ -48,8 +48,8 @@ CREATE TABLE `CoworkingSpace`
   `city`        varchar(45) NOT NULL ,
   `state`       varchar(45) NOT NULL ,
   `country`     varchar(45) NOT NULL ,
-  `latitude`    float NOT NULL ,
-  `longitude`   float NOT NULL ,
+  `latitude`    float ,
+  `longitude`   float ,
   `week_price`  integer NOT NULL ,
   `month_price` integer NOT NULL ,
   `manager_id`  integer NOT NULL ,
