@@ -1,4 +1,4 @@
-from db import db
+from db import db, ma
 import hashlib
 
 class CoworkerModel(db.Model):
@@ -44,6 +44,10 @@ class CoworkerModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @classmethod
     def find_by_id(cls, id):
         return cls.query.filter_by(coworker_id=id).first()
@@ -65,3 +69,9 @@ class CoworkerModel(db.Model):
             'country': self.country,
             'Password': self.password
         }
+
+
+class CoworkerSchema(ma.Schema):
+    class Meta:
+        fields = ('username', 'password')
+        dump_only = ('id')

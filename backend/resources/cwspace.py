@@ -1,4 +1,5 @@
 from flask import jsonify
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource, request
 from models.CoworkingSpaces import CoworkingSpacesModel, CoworkingSpaceSchema
 
@@ -10,25 +11,14 @@ class Cwspaces(Resource):
         return jsonify(results.data)
         # return {'data': list(map(lambda x: x.json(), CoworkingSpacesModel.query.all()))}
 
+    @jwt_required
     def post(self):
         cwspace_schema = CoworkingSpaceSchema(strict=True)
-
-        name = request.json['name']
-        address = request.json['address']
-        image_url = request.json['image_url']
-        currency = request.json['currency']
-        day_price = request.json['day_price']
-        description = request.json['description']
-        postal_area = request.json['postal_area']
-        city = request.json['city']
-        state = request.json['state']
-        country = request.json['country']
-        week_price = request.json['week_price']
-        month_price = request.json['month_price']
-        manager_id = request.json['manager_id']
-
-        cwspace = CoworkingSpacesModel(name, address, image_url, currency, day_price, description,
-                                        postal_area, city, state, country, week_price, month_price, manager_id)
+        data = cwspace_schema.load(request.get_json()).data
+        cwspace = CoworkingSpacesModel(data['name'],
+        data['address'], data['image_url'], data['currency'], data['day_price'],
+        data['description'], data['postal_area'], data['city'], data['state'], 
+        data['country'], data['week_price'], data['month_price'], data['manager_id'])
 
         cwspace.save_to_db()
         return {"message": f"Coworking Space created successfully.",

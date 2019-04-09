@@ -1,4 +1,6 @@
 from flask_restful import Resource, reqparse
+from flask_jwt_extended import jwt_required
+
 from models.Coworker import CoworkerModel
 
 class Coworkers(Resource):
@@ -11,6 +13,15 @@ class Coworker(Resource):
         cw = CoworkerModel.find_by_id(id)
         if cw: return cw.json()
         return {'message': 'Coworker not found'}, 404
+
+    @jwt_required
+    def delete(cls, id: int):
+        user = CoworkerModel.find_by_id(id)
+        if not user:
+            return {"message": "User not found."}, 404
+        
+        user.delete_from_db()
+        return {"message": "User deleted"}, 200
 
 
 class CoworkerRegister(Resource):
