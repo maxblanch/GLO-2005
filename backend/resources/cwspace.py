@@ -39,6 +39,7 @@ class Cwspaces(Resource):
 
 class CwspacesSearch(Resource):
     def get(self, query):
+        query = query.split()[0]
         if (len(query) >= 3):
             cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
             results = CoworkingSpacesModel.find_by_name_city_state_country(query)
