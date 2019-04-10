@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       valid: false,
-      e1: false,
+      e1: true,
       password: "sekiro",
       passwordRules: [v => !!v || "Password is required"],
       username: "Ashen One5",

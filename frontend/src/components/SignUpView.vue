@@ -130,7 +130,7 @@ export default {
   data() {
     return {
       valid: false,
-      e1: false,
+      e1: true,
 
       firstName: "Saucy",
       firstNameRules: [v => !!v || "First name is required"],

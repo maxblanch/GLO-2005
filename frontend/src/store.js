@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     status: "",
     token: localStorage.getItem("token") || "",
-    user: ""
+    user: localStorage.getItem("username") || ""
   },
   mutations: {
     auth_request(state) {
@@ -40,7 +40,8 @@ export default new Vuex.Store({
             const token = resp.data.access_token;
             const user = JSON.parse(resp.config.data).username;
             localStorage.setItem("token", token);
-            // Add the following line:
+            localStorage.setItem("username", user);
+
             axios.defaults.headers.common["Authorization"] = token;
             commit("auth_success", { token, user });
             resolve(resp);
@@ -48,6 +49,7 @@ export default new Vuex.Store({
           .catch(err => {
             commit("auth_error");
             localStorage.removeItem("token");
+            localStorage.removeItem("username");
             reject(err);
           });
       });
@@ -70,14 +72,16 @@ export default new Vuex.Store({
                 const token = resp.data.access_token;
                 const user = JSON.parse(resp.config.data).username;
                 localStorage.setItem("token", token);
-                // Add the following line:
+                localStorage.setItem("username", user);
+
                 axios.defaults.headers.common["Authorization"] = token;
-                commit("auth_success", token, user);
+                commit("auth_success", { token, user });
                 resolve(resp);
               })
               .catch(err => {
                 commit("auth_error");
                 localStorage.removeItem("token");
+                localStorage.removeItem("username");
                 reject(err);
               });
           })
