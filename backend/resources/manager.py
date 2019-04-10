@@ -30,6 +30,19 @@ class Manager(Resource):
         else:
             return {'message': 'Must be type of Manager'}, 401
 
+    @jwt_required
+    def delete(self):
+        req = get_jwt_identity().split()
+        if (req[0] == 'manager'):
+            manager = ManagerModel.find_by_id(req[1])
+            if (manager):
+                manager.delete_from_db()
+                return {'message': 'Manager deleted'}, 200
+            else:
+                return {'message': 'Manager not found'}, 404
+        else:
+            return {'message': 'Unauthorized'}, 401
+
 
 class ManagerRegister(Resource):
     parser = reqparse.RequestParser()
