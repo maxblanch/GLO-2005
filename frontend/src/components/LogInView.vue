@@ -61,28 +61,23 @@ export default {
       password: "sekiro",
       passwordRules: [v => !!v || "Password is required"],
       username: "Ashen One",
-      usernameRules: [
-        v => !!v || "Username is required"
-        // v =>
-        //   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-        //   "E-mail must be valid"
-      ]
+      usernameRules: [v => !!v || "Username is required"]
     };
   },
   methods: {
     login() {
-      let user = { username: this.username, password: this.password };
+      let user = { username: this.username, password: btoa(this.password) };
       console.log(`connecting user ${user.username}`);
       this.$auth
         .login(user)
         .then(res => {
           console.log(res);
-          alert(res);
+          this.$router.push("/");
           // Execute application logic after successful login
         })
         .catch(err => {
           console.log(err.response);
-          alert(err.response.data.msg);
+          alert(err.response.data.message);
         });
     }
   }
