@@ -1,3 +1,4 @@
+from flask import jsonify
 from flask_restful import Resource, reqparse, request
 from flask_jwt_extended import jwt_required
 from models.Review import ReviewModel, ReviewSchema
@@ -21,6 +22,18 @@ class Reviews(Resource):
                     "coworker_id": review.coworker_id}, 201
         except:
             return {"message": "User already did a review for this coworking space"}, 401
+
+
+class ReviewsForCWspace(Resource):
+    def get(self, cws_id):
+        reviews_schema = ReviewSchema(many=True, strict=True)
+        reviews = ReviewModel.find_by_cwspace(cws_id)
+
+        if (reviews):
+            reviews = reviews_schema.dump(reviews)
+            return jsonify(reviews.data)
+        else:
+            return {'message': 'No reviews for the specified Coworking Space'}, 404
 
 
 class Review(Resource):

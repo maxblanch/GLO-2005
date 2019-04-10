@@ -10,7 +10,7 @@ from db import db, ma
 from resources.coworker import Coworkers, Coworker, CoworkerRegister
 from resources.manager import Managers, Manager, ManagerRegister
 from resources.cwspace import Cwspaces, Cwspace, CwspacesSearch
-from resources.review import Reviews, Review
+from resources.review import Reviews, Review, ReviewsForCWspace
 from resources.login import UserLogin
 
 app = Flask(__name__)
@@ -42,6 +42,7 @@ api.add_resource(CwspacesSearch, '/cwspaces/<string:query>')
 api.add_resource(Cwspace, '/cwspace/<int:id>')
 
 api.add_resource(Reviews, '/reviews')
+api.add_resource(ReviewsForCWspace, '/reviews/<int:cws_id>')
 api.add_resource(Review, '/review/<int:cws_id>_<int:coworker_id>')
 
 if __name__ == '__main__':

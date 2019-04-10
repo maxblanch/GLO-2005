@@ -29,6 +29,9 @@ class ReviewModel(db.Model):
     def find_by_id(cls, cws_id, coworker_id):
         return cls.query.filter_by(cws_id=cws_id, coworker_id=coworker_id).first()
 
+    @classmethod
+    def find_by_cwspace(cls, cws_id):
+        return cls.query.filter_by(cws_id=cws_id).all()
     
     def json(self):
         return {

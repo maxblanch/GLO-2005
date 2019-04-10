@@ -26,7 +26,6 @@ class Cwspaces(Resource):
 
         
 
-
 class CwspacesSearch(Resource):
     def get(self, query):
         query = query.split()[0]
@@ -36,6 +35,7 @@ class CwspacesSearch(Resource):
             results = cwspaces_schema.dump(results)
             return jsonify(results.data)
         # return {'data': list(map(lambda x: x.json(), CoworkingSpacesModel.find_by_country(query)))}
+
 
 class Cwspace(Resource):
     def get(self, id):
