@@ -73,5 +73,6 @@ class CoworkerModel(db.Model):
 
 class CoworkerSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'password')
-        dump_only = ('id')
+        fields = ('coworker_id', 'username', 'first_name', 'last_name', 'email', 
+                    'gender', 'username', 'password', 'address', 'postal_area', 'city', 'state', 'country')
+        load_only = ('password',)
