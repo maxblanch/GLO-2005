@@ -1,7 +1,10 @@
+from flask import jsonify
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models.Coworker import CoworkerModel
+from models.Coworker import CoworkerModel, CoworkerSchema
+
+coworker_schema = CoworkerSchema(strict=True)
 
 class Coworkers(Resource):
     def get(self):
@@ -11,17 +14,21 @@ class Coworkers(Resource):
 class Coworker(Resource):
     def get(self, id):
         cw = CoworkerModel.find_by_id(id)
-        if cw: return cw.json()
+        data = coworker_schema.dump(cw).data
+        if data: return jsonify(data)
         return {'message': 'Coworker not found'}, 404
 
     @jwt_required
     def delete(cls, id: int):
-        user = CoworkerModel.find_by_id(id)
-        if not user:
-            return {"message": "User not found."}, 404
-        
-        user.delete_from_db()
-        return {"message": "User deleted"}, 200
+        if (get_jwt_identity() == id):
+            user = CoworkerModel.find_by_id(id)
+            if not user:
+                return {"message": "User not found."}, 404
+            
+            user.delete_from_db()
+            return {"message": "User deleted"}, 200
+        else:
+            return {"message": "Authorization needed"}, 401
 
 
 class CoworkerRegister(Resource):
@@ -48,5 +55,7 @@ class CoworkerRegister(Resource):
         user = CoworkerModel(data['first_name'], data['last_name'], data['email'], data['gender'], data['username'], data['password'], 
                              data['address'], data['postal_area'], data['city'], data['state'], data['country'])
         user.save_to_db()
+        user = coworker_schema.dump(user).data
 
-        return {"message": "User created successfully."}, 201
+        return {"message": "User created successfully.",
+                "user_info": user}, 201

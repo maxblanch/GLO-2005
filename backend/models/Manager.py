@@ -44,6 +44,10 @@ class ManagerModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @classmethod
     def find_by_id(cls, id):
         return cls.query.filter_by(manager_id=id).first()
@@ -55,6 +59,10 @@ class ManagerModel(db.Model):
     @classmethod
     def find_by_username(cls, username):
         return cls.query.filter_by(username=username).first()
+
+    @classmethod
+    def find_by_email(cls, email):
+        return cls.query.filter_by(email=email).first()
     
     def json(self):
         return {
@@ -69,5 +77,6 @@ class ManagerModel(db.Model):
 
 class ManagerSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'password')
-        dump_only = ('id')
+        fields = ('manager_id', 'first_name', 'last_name', 'email', 'gender', 'username', 
+                  'password', 'address', 'postal_area', 'city', 'state', 'country')
+        load_only = ('password',)

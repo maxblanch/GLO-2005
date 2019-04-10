@@ -1,7 +1,9 @@
 from flask import jsonify
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource, request
 from models.CoworkingSpaces import CoworkingSpacesModel, CoworkingSpaceSchema
+
+coworkingSpace_schema = CoworkingSpaceSchema(strict=True)
 
 class Cwspaces(Resource):
     def get(self):
@@ -9,20 +11,6 @@ class Cwspaces(Resource):
         results = CoworkingSpacesModel.query.all()
         results = cwspaces_schema.dump(results)
         return jsonify(results.data)
-        # return {'data': list(map(lambda x: x.json(), CoworkingSpacesModel.query.all()))}
-
-    @jwt_required
-    def post(self):
-        cwspace_schema = CoworkingSpaceSchema(strict=True)
-        data = cwspace_schema.load(request.get_json()).data
-        cwspace = CoworkingSpacesModel(data['name'],
-        data['address'], data['image_url'], data['currency'], data['day_price'],
-        data['description'], data['postal_area'], data['city'], data['state'], 
-        data['country'], data['week_price'], data['month_price'], data['manager_id'])
-
-        cwspace.save_to_db()
-        return {"message": f"Coworking Space created successfully.",
-                "cws_id": cwspace.cws_id}, 201
 
 
 class CwspaceByCities(Resource):
@@ -52,3 +40,36 @@ class Cwspace(Resource):
         cw = CoworkingSpacesModel.find_by_id(id)
         if cw: return cw.json()
         return {'message': 'Coworker not found'}, 404
+
+    @jwt_required
+    def delete(self, id):
+        cw = CoworkingSpacesModel.find_by_id(id)
+        if (cw):
+            cw_data = coworkingSpace_schema.dump(cw).data
+            token_data = get_jwt_identity().split()
+            if (token_data[0] == 'manager' and int(token_data[1]) == cw_data['manager_id']):
+                cw.delete_from_db()
+                return {'message': f"Coworking space id: {cw_data['cws_id']} deleted"}, 200
+            else:
+                return {'message': 'Unauthorized'}, 401
+        else:
+            return {'message': 'Coworking Space Not Found'}, 404
+
+
+class CwspaceAdd(Resource):
+    @jwt_required
+    def post(self):
+        token_data = get_jwt_identity().split()
+        cwspace_schema = CoworkingSpaceSchema(strict=True)
+        data = cwspace_schema.load(request.get_json()).data
+
+        if ('manager' != token_data[0]): return {'message': 'Authorization Needed'}, 401
+            
+        cwspace = CoworkingSpacesModel(data['name'],
+        data['address'], data['image_url'], data['currency'], data['day_price'],
+        data['description'], data['postal_area'], data['city'], data['state'], 
+        data['country'], data['week_price'], data['month_price'], token_data[1])
+
+        cwspace.save_to_db()
+        return {"message": f"Coworking Space created successfully.",
+                "cws_id": cwspace.cws_id}, 201

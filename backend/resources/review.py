@@ -3,6 +3,9 @@ from flask_restful import Resource, reqparse, request
 from flask_jwt_extended import jwt_required
 from models.Review import ReviewModel, ReviewSchema
 
+reviews_schema = ReviewSchema(many=True, strict=True)
+review_schema = ReviewSchema(strict=True)
+
 class Reviews(Resource):
     def get(self):
         return {'items': list(map(lambda x: x.json(), ReviewModel.query.all()))}
@@ -39,5 +42,6 @@ class ReviewsForCWspace(Resource):
 class Review(Resource):
     def get(self, cws_id, coworker_id):
         cw = ReviewModel.find_by_id(cws_id, coworker_id)
-        if cw: return cw.json()
+        data = review_schema.dump(cw).data
+        if data: return jsonify(data)
         return {'message': 'Review Not Found'}, 404
