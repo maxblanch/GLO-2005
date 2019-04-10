@@ -27,6 +27,19 @@
       </v-toolbar>
     </v-responsive>
     <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-toolbar flat class="transparent" v-if="isLoggedIn">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="https://randomuser.me/api/portraits/men/85.jpg" />
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{ currentUser }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
@@ -73,11 +86,14 @@ export default {
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
+    },
+    currentUser: function() {
+      return this.$store.getters.currentUser;
     }
   },
   methods: {
     logout() {
-      this.$store.dispatch("logout").then(() => this.$router.push("/"));
+      this.$store.dispatch("logout").then(() => this.$router.push("/login"));
     }
   },
   data() {

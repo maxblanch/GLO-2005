@@ -60,17 +60,17 @@ export default {
       e1: false,
       password: "sekiro",
       passwordRules: [v => !!v || "Password is required"],
-      username: "Ashen One",
+      username: "Ashen One5",
       usernameRules: [v => !!v || "Username is required"]
     };
   },
   methods: {
     login() {
-      let user = { username: this.username, password: btoa(this.password) };
-      console.log(`connecting user ${user.username}`);
-
       this.$store
-        .dispatch("login", user)
+        .dispatch("login", {
+          username: this.username,
+          password: btoa(this.password)
+        })
         .then(res => {
           console.log(res);
           this.$router.push("/");

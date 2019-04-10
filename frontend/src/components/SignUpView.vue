@@ -168,7 +168,7 @@ export default {
   methods: {
     signup() {
       if (!this.valid) return;
-      let user = {
+      const user = {
         first_name: this.firstName,
         last_name: this.lastName,
         email: this.email,
@@ -182,33 +182,28 @@ export default {
         country: this.country
       };
 
-      console.log(`registering user \n
-        ${user.first_name}\n
-        ${user.last_name}\n
-        ${user.email}\n
-        ${user.gender}\n
-        ${user.username}\n
-        ${user.password}\n
-        ${user.address}\n
-        ${user.postal_area}\n
-        ${user.city}\n
-        ${user.state}\n
-        ${user.country}\n`);
+      // console.log(`registering user \n
+      //   ${user.first_name}\n
+      //   ${user.last_name}\n
+      //   ${user.email}\n
+      //   ${user.gender}\n
+      //   ${user.username}\n
+      //   ${user.password}\n
+      //   ${user.address}\n
+      //   ${user.postal_area}\n
+      //   ${user.city}\n
+      //   ${user.state}\n
+      //   ${user.country}\n`);
 
-      this.register(user, this.accountType.toLowerCase());
-    },
-
-    register(user, accountType) {
-      this.$http
-        .post(`http://localhost:5000/${accountType}/register`, user)
+      this.$store
+        .dispatch("registerCoworker", user)
         .then(res => {
           console.log(res);
-          alert(res.data.message);
           this.$router.push("/");
         })
         .catch(err => {
           console.log(err.response);
-          alert(err.response.data.message.toString());
+          alert(err.response.data.message);
         });
     }
   }
