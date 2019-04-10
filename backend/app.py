@@ -3,13 +3,12 @@ from flask import Flask, request, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from marshmallow import ValidationError
-from security import user_login
 from db import db, ma
 
 # Imports of RESTful Api routes Ressources
 from resources.coworker import Coworkers, Coworker, CoworkerRegister
 from resources.manager import Managers, Manager, ManagerRegister
-from resources.cwspace import Cwspaces, Cwspace, CwspacesSearch
+from resources.cwspace import Cwspaces, Cwspace, CwspacesSearch, CwspaceByCities
 from resources.review import Reviews, Review, ReviewsForCWspace
 from resources.login import UserLogin
 
@@ -38,6 +37,7 @@ api.add_resource(Manager, '/manager/<int:id>')
 api.add_resource(ManagerRegister, '/manager/register')
 
 api.add_resource(Cwspaces, '/cwspaces')
+api.add_resource(CwspaceByCities, '/cwspaces/<string:city>')
 api.add_resource(CwspacesSearch, '/cwspaces/<string:query>')
 api.add_resource(Cwspace, '/cwspace/<int:id>')
 

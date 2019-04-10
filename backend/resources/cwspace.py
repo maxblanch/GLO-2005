@@ -24,7 +24,17 @@ class Cwspaces(Resource):
         return {"message": f"Coworking Space created successfully.",
                 "cws_id": cwspace.cws_id}, 201
 
-        
+
+class CwspaceByCities(Resource):
+    def get(self, city):
+        cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
+        data = CoworkingSpacesModel.find_by_cities(city)
+        if (data):
+            data = cwspaces_schema.dump(data)
+            return jsonify(data.data)
+        else:
+            return {'message': 'No Coworking spaces found for this city'}, 404
+
 
 class CwspacesSearch(Resource):
     def get(self, query):
