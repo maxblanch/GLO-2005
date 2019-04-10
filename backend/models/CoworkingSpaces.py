@@ -46,6 +46,10 @@ class CoworkingSpacesModel(db.Model):
         return cls.query.filter_by(cws_id=id).first()
 
     @classmethod
+    def find_by_cities(cls, city):
+        return cls.query.filter_by(city=city).all()
+
+    @classmethod
     def find_by_name_city_state_country(cls, query):
         return cls.query.filter(or_(cls.country.ilike(f"%{query}%"),
                                     cls.name.ilike(f"%{query}%"),
@@ -63,4 +67,4 @@ class CoworkingSpacesModel(db.Model):
 
 class CoworkingSpaceSchema(ma.Schema):
     class Meta:
-        fields = ('cws_id', 'name', 'address', 'image_url', 'currency', 'day_price', 'description', 'rating', 'postal_area', 'city', 'state', 'country', 'latitude', 'longitude', 'week_price', 'month_price', 'manager_id')
+        fields = ('cws_id', 'name', 'address', 'image_url', 'currency', 'day_price', 'description', 'rating', 'postal_area', 'city', 'state', 'country', 'week_price', 'month_price', 'manager_id')
