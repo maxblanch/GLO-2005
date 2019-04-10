@@ -55,6 +55,10 @@ class ManagerModel(db.Model):
     @classmethod
     def find_by_username(cls, username):
         return cls.query.filter_by(username=username).first()
+
+    @classmethod
+    def find_by_email(cls, email):
+        return cls.query.filter_by(email=email).first()
     
     def json(self):
         return {
@@ -69,5 +73,6 @@ class ManagerModel(db.Model):
 
 class ManagerSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'password')
-        dump_only = ('id')
+        fields = ('manager_id', 'first_name', 'last_name', 'email', 'gender', 'username', 
+                  'password', 'address', 'postal_area', 'city', 'state', 'country')
+        load_only = ('password',)

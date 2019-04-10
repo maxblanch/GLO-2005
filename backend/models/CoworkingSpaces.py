@@ -40,6 +40,10 @@ class CoworkingSpacesModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+    
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
 
     @classmethod
     def find_by_id(cls, id):
@@ -55,14 +59,6 @@ class CoworkingSpacesModel(db.Model):
                                     cls.name.ilike(f"%{query}%"),
                                     cls.city.ilike(f"%{query}%"),
                                     cls.state.ilike(f"%{query}%"))).all()
-
-    def json(self):
-        return {
-            'id': self.cws_id,
-            'name': self.name,
-            'address': self.address,
-            'country': self.country,
-        }
 
 
 class CoworkingSpaceSchema(ma.Schema):
