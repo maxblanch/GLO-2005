@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height class="login" @submit.prevent="login">
     <v-layout flex align-center justify-center>
       <v-flex xs12 sm4 elevation-6>
         <v-toolbar class="pt-5 primary darken-1">
@@ -68,8 +68,9 @@ export default {
     login() {
       let user = { username: this.username, password: btoa(this.password) };
       console.log(`connecting user ${user.username}`);
-      this.$auth
-        .login(user)
+
+      this.$store
+        .dispatch("login", user)
         .then(res => {
           console.log(res);
           this.$router.push("/");

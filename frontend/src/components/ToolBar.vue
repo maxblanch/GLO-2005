@@ -43,6 +43,26 @@
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-list-tile v-if="!isLoggedIn" to="/login">
+          <v-list-tile-action>
+            <v-icon>input</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Log in</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile v-if="isLoggedIn" @click="logout">
+          <v-list-tile-action>
+            <v-icon>power_off</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Log out</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
   </nav>
@@ -50,6 +70,16 @@
 
 <script>
 export default {
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout").then(() => this.$router.push("/"));
+    }
+  },
   data() {
     return {
       drawer: false,
@@ -65,8 +95,7 @@ export default {
           title: "Sign Up",
           icon: "assignment_ind",
           route: "/signup"
-        },
-        { title: "Log In", icon: "input", route: "/login" }
+        }
       ]
     };
   },
@@ -74,25 +103,6 @@ export default {
   props: {
     title: String
   }
-  // methods: {
-  //   login: () => {
-  //     this.$auth.login({ email, password }).then(() => {
-  //       // Execute application logic after successful login
-  //     });
-  //   },
-  //   register: () => {
-  //     this.drawer = !this.drawer;
-  //     alert("asdsad");
-  //     this.$auth.register({ name, email, password }).then(() => {
-  //       // Execute application logic after successful registration
-  //     });
-  //   },
-  //   authenticate: provider => {
-  //     this.$auth.authenticate(provider).then(() => {
-  //       // Execute application logic after successful social authentication
-  //     });
-  //   }
-  // }
 };
 </script>
 

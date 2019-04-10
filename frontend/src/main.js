@@ -9,6 +9,11 @@ import router from "./router";
 import VueAxios from "vue-axios";
 import VueAuthenticate from "vue-authenticate";
 import axios from "axios";
+import store from "./store";
+
+Vue.prototype.$http = axios;
+const token = localStorage.getItem("token");
+if (token) Vue.prototype.$http.defaults.headers.common["Authorization"] = token;
 
 Vue.config.productionTip = false;
 
@@ -20,25 +25,26 @@ Vue.use(Vuetify, {
     error: "#b71c1c"
   }
 });
-Vue.use(VueAxios, axios);
-Vue.use(VueAuthenticate, {
-  baseUrl: "http://localhost:5000", // API domain
-  loginUrl: "/login"
-  // registerUrl: "/:type/register"
-  // registerManagerUrl: "/manager/register"
-  // providers: {
-  // //Define OAuth providers config
-  //   github: {
-  //     clientId: "",
-  //     redirectUri: "http://localhost:8080/cities" // client app callback
-  //   }
-  // }
-});
+// Vue.use(VueAxios, axios);
+// Vue.use(VueAuthenticate, {
+//   baseUrl: "http://localhost:5000", // API domain
+//   loginUrl: "/login"
+//   // registerUrl: "/:type/register"
+//   // registerManagerUrl: "/manager/register"
+//   // providers: {
+//   // //Define OAuth providers config
+//   //   github: {
+//   //     clientId: "",
+//   //     redirectUri: "http://localhost:8080/cities" // client app callback
+//   //   }
+//   // }
+// });
 
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
   router,
+  store,
   components: { App },
   template: "<App/>"
 });
