@@ -4,7 +4,7 @@
       <v-container>
         <v-layout justify-center>
           <div>
-            <h1>
+            <h1 class="white--text">
               Find your <span style="color: #42b983">Perfect</span> Coworking
               Space
             </h1>

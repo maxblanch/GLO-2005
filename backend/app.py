@@ -1,5 +1,6 @@
 from mysql.connector import MySQLConnection, Error
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from flask_restful import Api
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from marshmallow import ValidationError
@@ -13,6 +14,7 @@ from resources.review import Reviews, Review, ReviewsForCWspace
 from resources.login import UserLogin
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:glo2005@localhost:3306/WeShare'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True

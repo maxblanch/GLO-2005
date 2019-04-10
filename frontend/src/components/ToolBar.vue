@@ -15,11 +15,11 @@
             <v-icon left>question_answer</v-icon>
             <span>About</span>
           </v-btn>
-          <v-btn flat @click="register()">
+          <v-btn flat to="/signup">
             <v-icon left>assignment_ind</v-icon>
             <span>Sign Up</span>
           </v-btn>
-          <v-btn flat @click="login()">
+          <v-btn flat to="/login">
             <v-icon left>input</v-icon>
             <span>Log In</span>
           </v-btn>
@@ -27,6 +27,19 @@
       </v-toolbar>
     </v-responsive>
     <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-toolbar flat class="transparent" v-if="isLoggedIn">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="https://randomuser.me/api/portraits/men/85.jpg" />
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{ currentUser }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
@@ -43,6 +56,26 @@
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-list-tile v-if="!isLoggedIn" to="/login">
+          <v-list-tile-action>
+            <v-icon>input</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Log in</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile v-if="isLoggedIn" @click="logout">
+          <v-list-tile-action>
+            <v-icon>power_off</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Log out</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
   </nav>
@@ -50,12 +83,25 @@
 
 <script>
 export default {
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    currentUser: function() {
+      return this.$store.getters.currentUser;
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout").then(() => this.$router.push("/login"));
+    }
+  },
   data() {
     return {
       drawer: false,
       items: [
         { title: "Home", icon: "dashboard", route: "/" },
-        { title: "Search", icon: "search", route: "" },
+        { title: "Search", icon: "search", route: "/search" },
         {
           title: "All Cities",
           icon: "location_city",
@@ -64,41 +110,20 @@ export default {
         {
           title: "Sign Up",
           icon: "assignment_ind",
-          route: ""
-        },
-        { title: "Log In", icon: "input", route: "" }
+          route: "/signup"
+        }
       ]
     };
   },
   name: "ToolBar",
   props: {
     title: String
-  },
-  methods: {
-    login: () => {
-      this.$auth.login({ email, password }).then(() => {
-        // Execute application logic after successful login
-      });
-    },
-    register: () => {
-      this.drawer = !this.drawer;
-      alert("asdsad");
-      this.$auth.register({ name, email, password }).then(() => {
-        // Execute application logic after successful registration
-      });
-    },
-    authenticate: provider => {
-      this.$auth.authenticate(provider).then(() => {
-        // Execute application logic after successful social authentication
-      });
-    }
   }
 };
 </script>
 
 <style scoped>
 .v-toolbar__title {
-  color: black;
   text-decoration: none;
 }
 </style>
