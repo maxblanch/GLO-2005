@@ -9,7 +9,7 @@ review_schema = ReviewSchema(strict=True)
 class Reviews(Resource):
     def get(self):
         reviews = ReviewModel.query.all()
-        data = reviews_schema.dump(reviews)
+        data = reviews_schema.dump(reviews).data
         if (data):
             return jsonify(data)
         else:
@@ -44,8 +44,8 @@ class ReviewsForCWspace(Resource):
 
 
 class Review(Resource):
-    def get(self, cws_id, coworker_id):
-        cw = ReviewModel.find_by_id(cws_id, coworker_id)
+    def get(self, review_id):
+        cw = ReviewModel.find_by_id(review_id)
         data = review_schema.dump(cw).data
         if data: return jsonify(data)
         return {'message': 'Review Not Found'}, 404

@@ -38,8 +38,9 @@ class CwspacesSearch(Resource):
 class Cwspace(Resource):
     def get(self, id):
         cw = CoworkingSpacesModel.find_by_id(id)
-        if cw: return cw.json()
-        return {'message': 'Coworker not found'}, 404
+        data = coworkingSpace_schema.dump(cw).data
+        if data: return jsonify(data)
+        return {'message': 'Coworking Space Not Found'}, 404
 
     @jwt_required
     def delete(self, id):

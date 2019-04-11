@@ -24,10 +24,13 @@ class Coworker(Resource):
         if data: return jsonify(data)
         return {'message': 'Coworker not found'}, 404
 
+
+class CoworkerDelete(Resource):
     @jwt_required
-    def delete(cls, id: int):
-        if (get_jwt_identity() == id):
-            user = CoworkerModel.find_by_id(id)
+    def delete(cls):
+        token_data = get_jwt_identity().split()
+        if (token_data[0] == 'coworker'):
+            user = CoworkerModel.find_by_id(token_data[1])
             if not user:
                 return {"message": "User not found."}, 404
             

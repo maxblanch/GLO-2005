@@ -7,7 +7,7 @@ class ReviewModel(db.Model):
     title = db.Column(db.String(45), nullable=False)
     comment = db.Column(db.String(2000), nullable=False)
     rating = db.Column(db.Float(), nullable=False)
-    # date = db.Column(db.DateTime(), nullable=False)
+    date = db.Column(db.DateTime())
     cws_id = db.Column(db.Integer(), db.ForeignKey('CoworkingSpace.cws_id'), primary_key=True)
     coworker_id = db.Column(db.Integer(), db.ForeignKey('Coworker.coworker_id'), primary_key=True)
 

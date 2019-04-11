@@ -7,7 +7,7 @@ from marshmallow import ValidationError
 from db import db, ma
 
 # Imports of RESTful Api routes Ressources
-from resources.coworker import Coworkers, Coworker, CoworkerRegister
+from resources.coworker import Coworkers, Coworker, CoworkerRegister, CoworkerDelete
 from resources.manager import Managers, Manager, ManagerRegister
 from resources.cwspace import Cwspaces, Cwspace, CwspaceAdd, CwspacesSearch, CwspaceByCities
 from resources.review import Reviews, Review, ReviewsForCWspace
@@ -32,6 +32,7 @@ def handle_marshmallow_validation(err):
 api.add_resource(UserLogin, '/login')
 
 api.add_resource(Coworkers, '/coworkers')
+api.add_resource(CoworkerDelete, '/coworker')
 api.add_resource(Coworker, '/coworker/<int:id>')
 api.add_resource(CoworkerRegister, '/coworker/register')
 
@@ -47,7 +48,7 @@ api.add_resource(CwspaceAdd, '/cwspace')
 
 api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewsForCWspace, '/reviews/<int:cws_id>')
-api.add_resource(Review, '/review/<int:cws_id>_<int:coworker_id>')
+api.add_resource(Review, '/review/<int:review_id>')
 
 api.add_resource(Answers, '/answers')
 api.add_resource(Answer, '/answer/<int:review_id>')
