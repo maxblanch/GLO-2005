@@ -1,6 +1,6 @@
 from flask import jsonify
 from flask_restful import Resource, reqparse, request
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.Review import ReviewModel, ReviewSchema
 
 reviews_schema = ReviewSchema(many=True, strict=True)
@@ -8,23 +8,27 @@ review_schema = ReviewSchema(strict=True)
 
 class Reviews(Resource):
     def get(self):
-        return {'items': list(map(lambda x: x.json(), ReviewModel.query.all()))}
+        reviews = ReviewModel.query.all()
+        data = reviews_schema.dump(reviews)
+        if (data):
+            return jsonify(data)
+        else:
+            return {'message': 'No Reviews Found'}, 404
 
     @jwt_required
     def post(self):
-        review_schema = ReviewSchema(strict=True)
+        token_data = get_jwt_identity().split()
+        if (token_data[0] != 'coworker'): return {'message': 'Reviews can only be done by coworkers'}, 401
         review_data = review_schema.load(request.get_json()).data
-        
         review = ReviewModel(review_data['title'], review_data['comment'],
-        review_data['rating'], review_data['cws_id'], review_data['coworker_id'])
-
+        review_data['rating'], review_data['cws_id'], token_data[1])
         try:
             review.save_to_db()
-            return {"message": f"Review created successfully.",
-                    "cws_id": review.cws_id,
-                    "coworker_id": review.coworker_id}, 201
         except:
-            return {"message": "User already did a review for this coworking space"}, 401
+            return {"message": "User already did a review for this coworking space"}, 400
+        return {"message": f"Review created successfully.",
+                "cws_id": review.cws_id,
+                "coworker_id": review.coworker_id}, 201
 
 
 class ReviewsForCWspace(Resource):

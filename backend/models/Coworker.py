@@ -59,16 +59,6 @@ class CoworkerModel(db.Model):
     @classmethod
     def find_by_username(cls, username):
         return cls.query.filter_by(username=username).first()
-    
-    def json(self):
-        return {
-            'id': self.coworker_id,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'gender': self.gender,
-            'country': self.country,
-            'Password': self.password
-        }
 
 
 class CoworkerSchema(ma.Schema):

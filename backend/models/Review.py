@@ -7,6 +7,7 @@ class ReviewModel(db.Model):
     title = db.Column(db.String(45), nullable=False)
     comment = db.Column(db.String(2000), nullable=False)
     rating = db.Column(db.Float(), nullable=False)
+    # date = db.Column(db.DateTime(), nullable=False)
     cws_id = db.Column(db.Integer(), db.ForeignKey('CoworkingSpace.cws_id'), primary_key=True)
     coworker_id = db.Column(db.Integer(), db.ForeignKey('Coworker.coworker_id'), primary_key=True)
 
@@ -22,7 +23,9 @@ class ReviewModel(db.Model):
         self.coworker_id = coworker_id
 
     def save_to_db(self):
-        db.session.add(self)
+        # db.session.add(self)
+        db.engine.execute("INSERT INTO `Review` (title, comment, rating, cws_id, coworker_id) VALUES (%s,%s,%s,%s,%s)",
+                           (self.title, self.comment, self.rating, self.cws_id, self.coworker_id))
         db.session.commit()
 
     @classmethod
@@ -32,17 +35,8 @@ class ReviewModel(db.Model):
     @classmethod
     def find_by_cwspace(cls, cws_id):
         return cls.query.filter_by(cws_id=cws_id).all()
-    
-    def json(self):
-        return {
-            'title': self.title,
-            'comment': self.comment,
-            'rating': self.rating,
-            'cws_id': self.cws_id,
-            'coworker_id': self.coworker_id
-        }
 
 
 class ReviewSchema(ma.Schema):
     class Meta:
-        fields = ('title', 'comment', 'rating', 'cws_id', 'coworker_id')
+        fields = ('title', 'comment', 'rating', 'cws_id', 'coworker_id', 'date')

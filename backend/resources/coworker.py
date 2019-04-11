@@ -5,10 +5,16 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.Coworker import CoworkerModel, CoworkerSchema
 
 coworker_schema = CoworkerSchema(strict=True)
+coworkers_schema = CoworkerSchema(many=True, strict=True)
 
 class Coworkers(Resource):
     def get(self):
-        return {'items': list(map(lambda x: x.json(), CoworkerModel.query.all()))}
+        coworkers = CoworkerModel.query.all()
+        data = coworkers_schema.dump(coworkers).data
+        if (data):
+            return jsonify(data)
+        else:
+            return {'message': 'No Coworkers Found'}, 404
 
 
 class Coworker(Resource):
