@@ -16,7 +16,7 @@ export default {
   components: { GenericAsync, CitiesView },
   data() {
     return {
-      dataSource: cwspaceAPI.getCwSpaces(),
+      dataSource: cwspaceAPI.getAll(),
       dataName: "coworking spaces data"
     };
   }

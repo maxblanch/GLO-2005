@@ -3,7 +3,8 @@ import Router from "vue-router";
 import HomeView from "@/components/HomeView";
 import Cities from "@/components/Cities";
 import LogInView from "@/components/LogInView";
-import SignUpView from "../components/SignUpView";
+import SignUpView from "@/components/SignUpView";
+import CWSpace from "@/components/CWSpace";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: "/signup",
       name: "SignUpView",
       component: SignUpView
+    },
+    {
+      path: "/cwspace/:id",
+      name: "CWSpace",
+      component: CWSpace
     }
   ]
 });
