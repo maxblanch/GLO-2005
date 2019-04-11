@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  name: "CitiesView"
+  name: "CitiesView",
+  props: ["cwspaces"]
 };
 </script>
 
