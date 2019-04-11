@@ -1,17 +1,19 @@
 <template>
-  <CitiesView />
+  <GenericAsync :dataName="dataName" :dataSource="dataSource"> </GenericAsync>
 </template>
 
 <script>
 import CitiesView from "@/components/CitiesView";
 import cwspaceAPI from "@/api/cwspaces";
+import GenericAsync from "@/components/utils/Async/GenericAsync";
 
 export default {
   name: "Cities",
-  components: { CitiesView },
+  components: { GenericAsync, CitiesView },
   data() {
     return {
-      cwspaces: cwspaceAPI.getCwSpaces()
+      dataSource: cwspaceAPI.getCwSpaces(),
+      dataName: "coworking spaces data"
     };
   }
 };
