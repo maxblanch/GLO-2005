@@ -8,7 +8,7 @@ import App from "./App";
 import router from "./router";
 import axios from "axios";
 import store from "./store";
-import "./../node_modules/bulma/css/bulma.css";
+// import "./../node_modules/bulma/css/bulma.css";
 
 Vue.prototype.$http = axios;
 const token = localStorage.getItem("token");

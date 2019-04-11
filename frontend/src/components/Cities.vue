@@ -1,5 +1,9 @@
 <template>
-  <GenericAsync :dataName="dataName" :dataSource="dataSource"> </GenericAsync>
+  <GenericAsync :dataName="dataName" :dataSource="dataSource">
+    <template slot-scope="{ data }">
+      <CitiesView :cwspaces="data" />
+    </template>
+  </GenericAsync>
 </template>
 
 <script>
