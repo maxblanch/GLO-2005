@@ -32,8 +32,8 @@ class AnswerPost(Resource):
         
         body = answer_schema.load(request.get_json()).data
         answer = AnswerModel.find_by_id(body['review_id'])
+        if not answer: return {'message': 'Did not match any review with this id'}, 400
         if (answer.manager_id != token_data[1]): return {'message': 'Manager can only answer reviews for their Coworking Space'}, 401
-
         answer = AnswerModel(body['review_id'], body['comment'], token_data[1])
 
         try:
