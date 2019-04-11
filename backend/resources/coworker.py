@@ -5,10 +5,16 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.Coworker import CoworkerModel, CoworkerSchema
 
 coworker_schema = CoworkerSchema(strict=True)
+coworkers_schema = CoworkerSchema(many=True, strict=True)
 
 class Coworkers(Resource):
     def get(self):
-        return {'items': list(map(lambda x: x.json(), CoworkerModel.query.all()))}
+        coworkers = CoworkerModel.query.all()
+        data = coworkers_schema.dump(coworkers).data
+        if (data):
+            return jsonify(data)
+        else:
+            return {'message': 'No Coworkers Found'}, 404
 
 
 class Coworker(Resource):
@@ -18,10 +24,13 @@ class Coworker(Resource):
         if data: return jsonify(data)
         return {'message': 'Coworker not found'}, 404
 
+
+class CoworkerDelete(Resource):
     @jwt_required
-    def delete(cls, id: int):
-        if (get_jwt_identity() == id):
-            user = CoworkerModel.find_by_id(id)
+    def delete(cls):
+        token_data = get_jwt_identity().split()
+        if (token_data[0] == 'coworker'):
+            user = CoworkerModel.find_by_id(token_data[1])
             if not user:
                 return {"message": "User not found."}, 404
             
