@@ -44,14 +44,24 @@ class CoworkingSpacesModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+    
+    @classmethod
+    def get_all(cls):
+        return db.engine.execute("SELECT * FROM CoworkingSpace")
 
     @classmethod
     def find_by_id(cls, id):
-        return cls.query.filter_by(cws_id=id).first()
+        data = db.engine.execute("SELECT * FROM CoworkingSpace WHERE cws_id = %s", (id))
+        result = data.fetchone()
+        data.close()
+        return result
 
     @classmethod
     def find_by_cities(cls, city):
-        return cls.query.filter_by(city=city).all()
+        data = db.engine.execute("SELECT * FROM CoworkingSpace WHERE city LIKE %s", (f"%{city}%"))
+        result = data.fetchall()
+        data.close()
+        return result
 
     @classmethod
     def find_by_name_city_state_country(cls, query):

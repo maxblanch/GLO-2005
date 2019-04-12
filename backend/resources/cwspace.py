@@ -7,9 +7,9 @@ coworkingSpace_schema = CoworkingSpaceSchema(strict=True)
 
 class Cwspaces(Resource):
     def get(self):
+        data = CoworkingSpacesModel.get_all()
         cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
-        results = CoworkingSpacesModel.query.all()
-        results = cwspaces_schema.dump(results)
+        results = cwspaces_schema.dump(data)
         return jsonify(results.data)
 
 
