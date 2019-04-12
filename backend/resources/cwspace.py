@@ -30,9 +30,9 @@ class CwspacesSearch(Resource):
         if (len(query) >= 3):
             cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
             results = CoworkingSpacesModel.find_by_name_city_state_country(query)
-            results = cwspaces_schema.dump(results)
-            return jsonify(results.data)
-        # return {'data': list(map(lambda x: x.json(), CoworkingSpacesModel.find_by_country(query)))}
+            results = cwspaces_schema.dump(results).data
+            if (len(results) != 0): return jsonify(results)
+            return {'message': 'No Coworking Spaces Found'}, 404
 
 
 class Cwspace(Resource):

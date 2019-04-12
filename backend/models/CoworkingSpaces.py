@@ -65,10 +65,15 @@ class CoworkingSpacesModel(db.Model):
 
     @classmethod
     def find_by_name_city_state_country(cls, query):
-        return cls.query.filter(or_(cls.country.ilike(f"%{query}%"),
+        data = db.engine.execute("SELECT * FROM CoworkingSpace WHERE country LIKE %s OR name LIKE %s OR city LIKE %s OR state LIKE %s", 
+                                  (f"%{query}%", f"%{query}%", f"%{query}%", f"%{query}%"))
+        results = data.fetchall()
+        data.close()
+        return results
+        """ return cls.query.filter(or_(cls.country.ilike(f"%{query}%"),
                                     cls.name.ilike(f"%{query}%"),
                                     cls.city.ilike(f"%{query}%"),
-                                    cls.state.ilike(f"%{query}%"))).all()
+                                    cls.state.ilike(f"%{query}%"))).all() """
 
 
 class CoworkingSpaceSchema(ma.Schema):
