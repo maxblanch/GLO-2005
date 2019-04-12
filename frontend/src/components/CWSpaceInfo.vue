@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "CWSpaceView",
+  name: "CWSpaceInfo",
   props: ["cwspace"],
   data() {
     return {
