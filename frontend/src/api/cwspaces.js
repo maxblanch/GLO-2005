@@ -17,8 +17,12 @@ const get = cwsId =>
 const getReviews = cwsId =>
   axios.get(`${reviewsRoot}/${cwsId}`).then(({ data }) => reviews.from(data));
 
+const search = query =>
+  axios.get(`${cwspacesRoot}/${query}`).then(({ data }) => cwspaces.from(data));
+
 export default {
   getAll,
   get,
-  getReviews
+  getReviews,
+  search
 };

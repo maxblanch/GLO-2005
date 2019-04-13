@@ -21,9 +21,8 @@
                       <div>
                         <v-icon left>location_on</v-icon>
                         <span>
-                          {{ cwspace.address }}, {{ cwspace.state }},{{
-                            cwspace.country
-                          }}</span
+                          {{ cwspace.address }}, {{ cwspace.city }},
+                          {{ cwspace.state }},{{ cwspace.country }}</span
                         >
                       </div>
                       <div>{{ cwspace.description }}</div>

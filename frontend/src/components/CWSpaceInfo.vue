@@ -6,7 +6,8 @@
           <img :src="cwspace.imageUrl" alt="iorem" />
           <h1 class="white--text">{{ cwspace.name }}</h1>
           <p class="white--text">
-            {{ cwspace.address }}, {{ cwspace.state }}, {{ cwspace.country }}
+            {{ cwspace.address }}, {{ cwspace.city }}, {{ cwspace.state }},
+            {{ cwspace.country }}
           </p>
           <h3 class="white--text">{{ cwspace.description }}</h3>
 

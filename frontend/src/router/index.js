@@ -6,6 +6,7 @@ import LogInView from "@/components/LogInView";
 import SignUpView from "@/components/SignUpView";
 import CWSpacePage from "@/components/CWSpacePage";
 import CWSpaceCard from "@/components/CWSpaceCard";
+import SearchResults from "@/components/SearchResults";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: "/cwspaces/",
       name: "CWSpaceCard",
       component: CWSpaceCard
+    },
+    {
+      path: "/search/:query",
+      name: "SearchResults",
+      component: SearchResults
     }
   ]
 });
