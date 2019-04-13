@@ -15,11 +15,17 @@
             <v-icon left>question_answer</v-icon>
             <span>About</span>
           </v-btn>
-          <v-btn flat to="/signup">
+
+          <v-btn flat v-if="isLoggedIn" @click="logout">
+            <v-icon left>power_off</v-icon>
+            <span>Log Out</span>
+          </v-btn>
+
+          <v-btn v-if="!isLoggedIn" flat to="/signup">
             <v-icon left>assignment_ind</v-icon>
             <span>Sign Up</span>
           </v-btn>
-          <v-btn flat to="/login">
+          <v-btn v-if="!isLoggedIn" flat to="/login">
             <v-icon left>input</v-icon>
             <span>Log In</span>
           </v-btn>
