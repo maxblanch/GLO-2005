@@ -3,7 +3,11 @@
     <v-container>
       <v-layout justify-center>
         <div>
-          <h1 class="white--text" v-for="cwspace in cwspaces">
+          <h1
+            @click="goToCity(cwspace.city)"
+            class="white--text"
+            v-for="cwspace in cwspaces"
+          >
             {{ cwspace.city }}
           </h1>
         </div>
@@ -15,7 +19,12 @@
 <script>
 export default {
   name: "CitiesView",
-  props: ["cwspaces"]
+  props: ["cwspaces"],
+  methods: {
+    goToCity(city) {
+      this.$router.push(`/cities/${city}`);
+    }
+  }
 };
 </script>
 

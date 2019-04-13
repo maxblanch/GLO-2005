@@ -7,6 +7,7 @@ import SignUpView from "@/components/SignUpView";
 import CWSpacePage from "@/components/CWSpacePage";
 import CWSpaceCard from "@/components/CWSpaceCard";
 import SearchResults from "@/components/SearchResults";
+import City from "@/components/City";
 
 Vue.use(Router);
 
@@ -21,6 +22,11 @@ export default new Router({
       path: "/cities",
       name: "Cities",
       component: Cities
+    },
+    {
+      path: "/cities/:city",
+      name: "City",
+      component: City
     },
     {
       path: "/login",
