@@ -38,7 +38,9 @@ class CoworkingSpacesModel(db.Model):
         self.manager_id = manager_id
 
     def save_to_db(self):
-        db.session.add(self)
+        # db.session.add(self)
+        db.engine.execute("INSERT INTO `CoworkingSpace` (name, address, image_url, currency, day_price, description, postal_area, city, state, country, week_price, month_price, manager_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                           (self.name, self.address, self.image_url, self.currency, self.day_price, self.description, self.postal_area, self.city, self.state, self.country, self.week_price, self.month_price, self.manager_id))
         db.session.commit()
     
     def delete_from_db(self):

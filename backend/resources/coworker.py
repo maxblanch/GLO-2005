@@ -9,7 +9,7 @@ coworkers_schema = CoworkerSchema(many=True, strict=True)
 
 class Coworkers(Resource):
     def get(self):
-        coworkers = CoworkerModel.query.all()
+        coworkers = CoworkerModel.get_all()
         data = coworkers_schema.dump(coworkers).data
         if (data):
             return jsonify(data)
@@ -33,8 +33,8 @@ class CoworkerDelete(Resource):
             user = CoworkerModel.find_by_id(token_data[1])
             if not user:
                 return {"message": "User not found."}, 404
-            
-            user.delete_from_db()
+
+            CoworkerModel.delete_from_db(user.coworker_id)
             return {"message": "User deleted"}, 200
         else:
             return {"message": "Authorization needed"}, 401
@@ -60,6 +60,9 @@ class CoworkerRegister(Resource):
 
         if CoworkerModel.find_by_username(data['username']):
             return {"message": "A user with that username already exists"}, 400
+
+        if CoworkerModel.find_by_email(data['email']):
+            return {"message": "A user with that email already exists"}, 400
 
         user = CoworkerModel(data['first_name'], data['last_name'], data['email'], data['gender'], data['username'], data['password'], 
                              data['address'], data['postal_area'], data['city'], data['state'], data['country'])

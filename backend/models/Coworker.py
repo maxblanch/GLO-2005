@@ -41,16 +41,20 @@ class CoworkerModel(db.Model):
         self.country = country
 
     def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
+        db.engine.execute("INSERT INTO `Coworker` (first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                           (self.first_name, self.last_name, self.email, self.gender, self.username, self.password, self.address, self.postal_area, self.city, self.state, self.country))
 
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
+    @classmethod
+    def delete_from_db(cls, coworker_id):
+        db.engine.execute("DELETE FROM Coworker WHERE coworker_id=%s", (coworker_id))
+
+    @classmethod
+    def get_all(cls):
+        return db.engine.execute("SELECT * FROM Coworker")
 
     @classmethod
     def find_by_id(cls, id):
-        return cls.query.filter_by(coworker_id=id).first()
+        return db.engine.execute("SELECT * FROM Coworker WHERE coworker_id=%s", (id)).fetchone()
 
     @staticmethod
     def hashPassword(password):
@@ -58,7 +62,11 @@ class CoworkerModel(db.Model):
     
     @classmethod
     def find_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
+        return db.engine.execute("SELECT * FROM Coworker WHERE username=%s", (username)).fetchone()
+
+    @classmethod
+    def find_by_email(cls, email):
+        return db.engine.execute("SELECT * FROM Coworker WHERE email=%s", (email)).fetchone()
 
 
 class CoworkerSchema(ma.Schema):

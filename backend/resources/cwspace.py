@@ -72,5 +72,6 @@ class CwspaceAdd(Resource):
         data['country'], data['week_price'], data['month_price'], token_data[1])
 
         cwspace.save_to_db()
+        cw = CoworkingSpacesModel.find_by_id(cwspace.cws_id)
         return {"message": f"Coworking Space created successfully.",
-                "cws_id": cwspace.cws_id}, 201
+                "cws_id": cw.cws_id}, 201

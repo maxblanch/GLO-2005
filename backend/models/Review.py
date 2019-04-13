@@ -23,7 +23,6 @@ class ReviewModel(db.Model):
         self.coworker_id = coworker_id
 
     def save_to_db(self):
-        # db.session.add(self)
         db.engine.execute("INSERT INTO `Review` (title, comment, rating, cws_id, coworker_id) VALUES (%s,%s,%s,%s,%s)",
                            (self.title, self.comment, self.rating, self.cws_id, self.coworker_id))
         db.session.commit()
