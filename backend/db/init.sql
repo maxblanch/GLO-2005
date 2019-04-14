@@ -6,11 +6,11 @@ CREATE TABLE `Coworker`
   `first_name`  varchar(45) NOT NULL ,
   `last_name`   varchar(45) NOT NULL ,
   `email`       varchar(45) NOT NULL UNIQUE ,
-  `gender`      VARCHAR(45) NOT NULL ,
+  `gender`      VARCHAR(10) NOT NULL ,
   `username`    VARCHAR(45) NOT NULL UNIQUE ,
 	`password`    VARCHAR(60) NOT NULL ,
   `address`     varchar(45) NOT NULL ,
-  `postal_area` varchar(45) NOT NULL ,
+  `postal_area` varchar(10) NOT NULL ,
   `city`        varchar(45) NOT NULL ,
   `state`       varchar(45) NOT NULL ,
   `country`     varchar(45) NOT NULL ,
@@ -23,11 +23,11 @@ CREATE TABLE `Manager`
 	`first_name` VARCHAR(45) NOT NULL ,
 	`last_name` VARCHAR(45) NOT NULL ,
 	`email` VARCHAR(45) NOT NULL UNIQUE,
-  `gender` VARCHAR(45) NOT NULL ,
+  `gender` VARCHAR(10) NOT NULL ,
   `username` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(60) NOT NULL ,
 	`address` VARCHAR(45) NOT NULL ,
-	`postal_area` VARCHAR(45) NOT NULL ,
+	`postal_area` VARCHAR(10) NOT NULL ,
 	`city` VARCHAR(45) NOT NULL ,
 	`state` VARCHAR(45) NOT NULL ,
 	`country` VARCHAR(45) NOT NULL ,
@@ -41,17 +41,17 @@ CREATE TABLE `CoworkingSpace`
   `address`     varchar(45) NOT NULL UNIQUE ,
   `image_url`   varchar(2083) ,
   `currency`    char(3) NOT NULL ,
-  `day_price`   integer NOT NULL ,
+  `day_price`   integer unsigned NOT NULL ,
   `description` varchar(2000) NOT NULL ,
-  `rating`      float ,
+  `rating`      float unsigned ,
   `postal_area` varchar(10) NOT NULL ,
   `city`        varchar(45) NOT NULL ,
   `state`       varchar(45) NOT NULL ,
   `country`     varchar(45) NOT NULL ,
   `latitude`    float ,
   `longitude`   float ,
-  `week_price`  integer NOT NULL ,
-  `month_price` integer NOT NULL ,
+  `week_price`  integer unsigned NOT NULL ,
+  `month_price` integer unsigned NOT NULL ,
   `manager_id`  integer NOT NULL ,
   PRIMARY KEY (`cws_id`),
   FOREIGN KEY (`manager_id`) REFERENCES `Manager` (`manager_id`) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -62,7 +62,7 @@ CREATE TABLE `Review`
   `review_id` int(11) NOT NULL AUTO_INCREMENT ,
   `title`       varchar(500) NOT NULL ,
   `comment`     varchar(2000) NOT NULL ,
-  `rating`      float NOT NULL ,
+  `rating`      float unsigned NOT NULL ,
   `cws_id`          integer NOT NULL ,
   `coworker_id` integer NOT NULL ,
   `date` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -81,6 +81,7 @@ CREATE TABLE `Answer` (
   FOREIGN KEY (`review_id`) REFERENCES  `Review` (`review_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
+-- Create Triggers
 DELIMITER ;;
 CREATE TRIGGER `update_rating` AFTER INSERT ON `Review` FOR EACH ROW
 BEGIN
@@ -98,6 +99,49 @@ BEGIN
   END IF;
 END;;
 DELIMITER ;
+
+DELIMITER ;;
+CREATE TRIGGER `valid_cw_gender` BEFORE INSERT ON `Coworker` FOR EACH ROW
+BEGIN
+  IF NEW.gender != "Male" OR NEW.gender != "Female"
+    THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Gender must be Male or Female';
+  END IF;
+END;;
+DELIMITER ;
+
+DELIMITER ;;
+CREATE TRIGGER `valid_manager_gender` BEFORE INSERT ON `Manager` FOR EACH ROW
+BEGIN
+  IF NEW.gender != "Male" OR NEW.gender != "Female"
+    THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Gender must be Male or Female';
+  END IF;
+END;;
+DELIMITER ;
+
+-- Create Indexes
+CREATE INDEX cwspace_city_ix
+ON CoworkingSpace (city)
+USING HASH;
+
+CREATE INDEX cwspace_name_ix
+ON CoworkingSpace (name)
+USING HASH;
+
+CREATE INDEX cwspace_state_ix
+ON CoworkingSpace (state)
+USING HASH;
+
+CREATE INDEX cwspace_country_ix
+ON CoworkingSpace (country)
+USING HASH;
+
+
+CREATE INDEX review_rating_ix
+ON Review (rating)
+USING BTREE;
+
+
+
 
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (1, 'Kata', 'Mateuszczyk', 'kmateuszczyk0@prlog.org', 'Female', 'kmateuszczyk0', '5f6fa20bc92f04e8757afb3719e9ee87', '70 Derek Street', '06010', 'Badajoz', 'Extremadura', 'Spain');
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (2, 'Chaim', 'Paxman', 'cpaxman1@privacy.gov.au', 'Male', 'cpaxman1', 'a94143d8b0c994c12dcb108a4bef1506', '8681 Caliangt Point', '30103', 'San Francisco', 'Chiapas', 'Mexico');
