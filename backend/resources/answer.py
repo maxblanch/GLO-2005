@@ -2,6 +2,7 @@ from flask import jsonify
 from flask_restful import Resource, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.Answer import AnswerModel, AnswerSchema
+from models.Review import ReviewModel, ReviewSchema
 
 answers_schema = AnswerSchema(many=True, strict=True)
 answer_schema = AnswerSchema(strict=True)
@@ -31,9 +32,10 @@ class AnswerPost(Resource):
         if (token_data[0] != 'manager'): return {'message': 'Answers can only be done by managers'}, 401
         
         body = answer_schema.load(request.get_json()).data
-        answer = AnswerModel.find_by_id(body['review_id'])
-        if not answer: return {'message': 'Did not match any review with this id'}, 400
-        if (answer.manager_id != token_data[1]): return {'message': 'Manager can only answer reviews for their Coworking Space'}, 401
+
+        isManger = AnswerModel.isManager(token_data[1], body['review_id'])
+
+        if not isManger: return {'message': 'Manager can only answer reviews for their Coworking Space'}, 401
         answer = AnswerModel(body['review_id'], body['comment'], token_data[1])
 
         try:

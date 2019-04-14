@@ -5,9 +5,9 @@ CREATE TABLE `Coworker`
   `coworker_id` integer NOT NULL AUTO_INCREMENT ,
   `first_name`  varchar(45) NOT NULL ,
   `last_name`   varchar(45) NOT NULL ,
-  `email`       varchar(45) NOT NULL ,
+  `email`       varchar(45) NOT NULL UNIQUE ,
   `gender`      VARCHAR(45) NOT NULL ,
-  `username`    VARCHAR(45) NOT NULL ,
+  `username`    VARCHAR(45) NOT NULL UNIQUE ,
 	`password`    VARCHAR(60) NOT NULL ,
   `address`     varchar(45) NOT NULL ,
   `postal_area` varchar(45) NOT NULL ,
@@ -54,7 +54,7 @@ CREATE TABLE `CoworkingSpace`
   `month_price` integer NOT NULL ,
   `manager_id`  integer NOT NULL ,
   PRIMARY KEY (`cws_id`),
-  FOREIGN KEY (`manager_id`) REFERENCES `Manager` (`manager_id`)
+  FOREIGN KEY (`manager_id`) REFERENCES `Manager` (`manager_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE `Review`
@@ -67,8 +67,8 @@ CREATE TABLE `Review`
   `coworker_id` integer NOT NULL ,
   `date` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`review_id`, `cws_id`, `coworker_id`),
-  FOREIGN KEY (`coworker_id`) REFERENCES `Coworker` (`coworker_id`),
-  FOREIGN KEY (`cws_id`) REFERENCES `CoworkingSpace` (`cws_id`)
+  FOREIGN KEY (`coworker_id`) REFERENCES `Coworker` (`coworker_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  FOREIGN KEY (`cws_id`) REFERENCES `CoworkingSpace` (`cws_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE `Answer` (
@@ -77,8 +77,8 @@ CREATE TABLE `Answer` (
   `date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `manager_id` int(11) NOT NULL,
   PRIMARY KEY (`review_id`),
-  FOREIGN KEY (`manager_id`) REFERENCES `Manager` (`manager_id`),
-  FOREIGN KEY (`review_id`) REFERENCES  `Review` (`review_id`)
+  FOREIGN KEY (`manager_id`) REFERENCES `Manager` (`manager_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  FOREIGN KEY (`review_id`) REFERENCES  `Review` (`review_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (1, 'Kata', 'Mateuszczyk', 'kmateuszczyk0@prlog.org', 'Female', 'kmateuszczyk0', '5f6fa20bc92f04e8757afb3719e9ee87', '70 Derek Street', '06010', 'Badajoz', 'Extremadura', 'Spain');

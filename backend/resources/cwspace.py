@@ -7,9 +7,9 @@ coworkingSpace_schema = CoworkingSpaceSchema(strict=True)
 
 class Cwspaces(Resource):
     def get(self):
+        data = CoworkingSpacesModel.get_all()
         cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
-        results = CoworkingSpacesModel.query.all()
-        results = cwspaces_schema.dump(results)
+        results = cwspaces_schema.dump(data)
         return jsonify(results.data)
 
 
@@ -30,9 +30,9 @@ class CwspacesSearch(Resource):
         if (len(query) >= 3):
             cwspaces_schema = CoworkingSpaceSchema(many=True, strict=True)
             results = CoworkingSpacesModel.find_by_name_city_state_country(query)
-            results = cwspaces_schema.dump(results)
-            return jsonify(results.data)
-        # return {'data': list(map(lambda x: x.json(), CoworkingSpacesModel.find_by_country(query)))}
+            results = cwspaces_schema.dump(results).data
+            if (len(results) != 0): return jsonify(results)
+            return {'message': 'No Coworking Spaces Found'}, 404
 
 
 class Cwspace(Resource):
@@ -49,7 +49,7 @@ class Cwspace(Resource):
             cw_data = coworkingSpace_schema.dump(cw).data
             token_data = get_jwt_identity().split()
             if (token_data[0] == 'manager' and int(token_data[1]) == cw_data['manager_id']):
-                cw.delete_from_db()
+                CoworkingSpacesModel.delete_from_db(cw.cws_id)
                 return {'message': f"Coworking space id: {cw_data['cws_id']} deleted"}, 200
             else:
                 return {'message': 'Unauthorized'}, 401
@@ -72,5 +72,6 @@ class CwspaceAdd(Resource):
         data['country'], data['week_price'], data['month_price'], token_data[1])
 
         cwspace.save_to_db()
+        last_cws = CoworkingSpacesModel.get_last_id()
         return {"message": f"Coworking Space created successfully.",
-                "cws_id": cwspace.cws_id}, 201
+                "cws_id": last_cws.cws_id}, 201

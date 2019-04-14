@@ -20,7 +20,12 @@ class AnswerModel(db.Model):
 
     @classmethod
     def find_by_id(cls, review_id):
-        return cls.query.filter_by(review_id=review_id).first()
+        return db.engine.execute("SELECT * FROM Answer WHERE review_id=%s", (review_id)).fetchone()
+
+    @classmethod
+    def isManager(cls, manager_id, review_id):
+        data = db.engine.execute("SELECT cws_id FROM CoworkingSpace WHERE manager_id=%s AND cws_id IN (SELECT cws_id FROM Review WHERE review_id=%s)", (manager_id, review_id)).fetchone()
+        return True if data else False
 
 
 class AnswerSchema(ma.Schema):

@@ -41,16 +41,21 @@ class ManagerModel(db.Model):
         self.country = country
 
     def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
+        db.engine.execute("INSERT INTO `Manager` (first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                           (self.first_name, self.last_name, self.email, self.gender, self.username, self.password, self.address, self.postal_area, self.city, self.state, self.country))
 
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
+    @classmethod
+    def delete_from_db(cls, manager_id):
+        db.engine.execute("DELETE FROM Manager WHERE manager_id=%s", (manager_id))
+
+    @classmethod
+    def get_all(cls):
+        return db.engine.execute("SELECT * FROM Manager").fetchall()
 
     @classmethod
     def find_by_id(cls, id):
-        return cls.query.filter_by(manager_id=id).first()
+        return db.engine.execute("SELECT * FROM Manager WHERE manager_id=%s", (id)).fetchone()
+        # return cls.query.filter_by(manager_id=id).first()
 
     @staticmethod
     def hashPassword(password):
@@ -58,11 +63,13 @@ class ManagerModel(db.Model):
     
     @classmethod
     def find_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
+        return db.engine.execute("SELECT * FROM Manager WHERE username=%s", (username)).fetchone()
+        # return cls.query.filter_by(username=username).first()
 
     @classmethod
     def find_by_email(cls, email):
-        return cls.query.filter_by(email=email).first()
+        return db.engine.execute("SELECT * FROM Manager WHERE email=%s", (email)).fetchone()
+        # return cls.query.filter_by(email=email).first()
     
     def json(self):
         return {

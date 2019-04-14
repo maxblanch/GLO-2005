@@ -8,7 +8,7 @@ managers_schema = ManagerSchema(many=True, strict=True)
 
 class Managers(Resource):
     def get(self):
-        data = ManagerModel.query.all()
+        data = ManagerModel.get_all()
         data = managers_schema.dump(data).data
         if (data):
             return jsonify(data)
@@ -36,7 +36,7 @@ class Manager(Resource):
         if (req[0] == 'manager'):
             manager = ManagerModel.find_by_id(req[1])
             if (manager):
-                manager.delete_from_db()
+                ManagerModel.delete_from_db(manager.manager_id)
                 return {'message': 'Manager deleted'}, 200
             else:
                 return {'message': 'Manager not found'}, 404

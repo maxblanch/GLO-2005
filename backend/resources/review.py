@@ -8,7 +8,7 @@ review_schema = ReviewSchema(strict=True)
 
 class Reviews(Resource):
     def get(self):
-        reviews = ReviewModel.query.all()
+        reviews = ReviewModel.get_all()
         data = reviews_schema.dump(reviews).data
         if (data):
             return jsonify(data)
@@ -20,6 +20,11 @@ class Reviews(Resource):
         token_data = get_jwt_identity().split()
         if (token_data[0] != 'coworker'): return {'message': 'Reviews can only be done by coworkers'}, 401
         review_data = review_schema.load(request.get_json()).data
+        
+        # Check if cws_id & coworker_id already exists
+        if (ReviewModel.find_by_cwsId_coworkerId(review_data['cws_id'], token_data[1])):
+            return {'message': 'This user has already reviewed this Coworking Space'}, 400
+
         review = ReviewModel(review_data['title'], review_data['comment'],
         review_data['rating'], review_data['cws_id'], token_data[1])
         try:
