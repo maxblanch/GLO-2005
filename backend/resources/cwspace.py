@@ -49,7 +49,7 @@ class Cwspace(Resource):
             cw_data = coworkingSpace_schema.dump(cw).data
             token_data = get_jwt_identity().split()
             if (token_data[0] == 'manager' and int(token_data[1]) == cw_data['manager_id']):
-                cw.delete_from_db()
+                CoworkingSpacesModel.delete_from_db(cw.cws_id)
                 return {'message': f"Coworking space id: {cw_data['cws_id']} deleted"}, 200
             else:
                 return {'message': 'Unauthorized'}, 401
@@ -72,6 +72,6 @@ class CwspaceAdd(Resource):
         data['country'], data['week_price'], data['month_price'], token_data[1])
 
         cwspace.save_to_db()
-        cw = CoworkingSpacesModel.find_by_id(cwspace.cws_id)
+        last_cws = CoworkingSpacesModel.get_last_id()
         return {"message": f"Coworking Space created successfully.",
-                "cws_id": cw.cws_id}, 201
+                "cws_id": last_cws.cws_id}, 201

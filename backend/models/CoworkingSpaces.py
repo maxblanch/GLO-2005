@@ -41,22 +41,22 @@ class CoworkingSpacesModel(db.Model):
         # db.session.add(self)
         db.engine.execute("INSERT INTO `CoworkingSpace` (name, address, image_url, currency, day_price, description, postal_area, city, state, country, week_price, month_price, manager_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                            (self.name, self.address, self.image_url, self.currency, self.day_price, self.description, self.postal_area, self.city, self.state, self.country, self.week_price, self.month_price, self.manager_id))
-        db.session.commit()
     
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
+    @classmethod
+    def delete_from_db(cls, cws_id):
+        db.engine.execute("DELETE FROM CoworkingSpace WHERE cws_id=%s", (cws_id))
     
     @classmethod
     def get_all(cls):
         return db.engine.execute("SELECT * FROM CoworkingSpace")
 
     @classmethod
+    def get_last_id(cls):
+        return db.engine.execute("SELECT * FROM CoworkingSpace ORDER BY cws_id DESC LIMIT 1").fetchone()
+
+    @classmethod
     def find_by_id(cls, id):
-        data = db.engine.execute("SELECT * FROM CoworkingSpace WHERE cws_id = %s", (id))
-        result = data.fetchone()
-        data.close()
-        return result
+        return db.engine.execute("SELECT * FROM CoworkingSpace WHERE cws_id = %s", (id)).fetchone()
 
     @classmethod
     def find_by_cities(cls, city):
