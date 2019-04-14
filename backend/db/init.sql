@@ -20,17 +20,17 @@ CREATE TABLE `Coworker`
 CREATE TABLE `Manager`
 (
   `manager_id` integer NOT NULL AUTO_INCREMENT ,
-	`first_name` VARCHAR(45),
-	`last_name` VARCHAR(45),
-	`email` VARCHAR(45),
-  `gender` VARCHAR(45),
-  `username` VARCHAR(45),
-  `password` VARCHAR(60),
-	`address` VARCHAR(45),
-	`postal_area` VARCHAR(45),
-	`city` VARCHAR(45),
-	`state` VARCHAR(45),
-	`country` VARCHAR(45),
+	`first_name` VARCHAR(45) NOT NULL ,
+	`last_name` VARCHAR(45) NOT NULL ,
+	`email` VARCHAR(45) NOT NULL UNIQUE,
+  `gender` VARCHAR(45) NOT NULL ,
+  `username` VARCHAR(45) NOT NULL UNIQUE,
+  `password` VARCHAR(60) NOT NULL ,
+	`address` VARCHAR(45) NOT NULL ,
+	`postal_area` VARCHAR(45) NOT NULL ,
+	`city` VARCHAR(45) NOT NULL ,
+	`state` VARCHAR(45) NOT NULL ,
+	`country` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`manager_id`)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE `CoworkingSpace`
 (
   `cws_id`      integer NOT NULL AUTO_INCREMENT,
   `name`        varchar(45) NOT NULL ,
-  `address`     varchar(45) NOT NULL ,
+  `address`     varchar(45) NOT NULL UNIQUE ,
   `image_url`   varchar(2083) ,
   `currency`    char(3) NOT NULL ,
   `day_price`   integer NOT NULL ,
