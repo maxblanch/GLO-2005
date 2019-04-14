@@ -81,6 +81,15 @@ CREATE TABLE `Answer` (
   FOREIGN KEY (`review_id`) REFERENCES  `Review` (`review_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
+DELIMITER ;;
+CREATE TRIGGER `update_rating` AFTER INSERT ON `Review` FOR EACH ROW
+BEGIN
+  UPDATE CoworkingSpace
+    SET CoworkingSpace.rating = (SELECT ROUND(avg(rating),2) FROM Review WHERE cws_id = NEW.cws_id GROUP BY cws_id)
+    WHERE CoworkingSpace.cws_id = NEW.cws_id;
+END;;
+DELIMITER ;
+
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (1, 'Kata', 'Mateuszczyk', 'kmateuszczyk0@prlog.org', 'Female', 'kmateuszczyk0', '5f6fa20bc92f04e8757afb3719e9ee87', '70 Derek Street', '06010', 'Badajoz', 'Extremadura', 'Spain');
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (2, 'Chaim', 'Paxman', 'cpaxman1@privacy.gov.au', 'Male', 'cpaxman1', 'a94143d8b0c994c12dcb108a4bef1506', '8681 Caliangt Point', '30103', 'San Francisco', 'Chiapas', 'Mexico');
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (3, 'Drucy', 'Trenam', 'dtrenam2@ustream.tv', 'Female', 'dtrenam2', '4e46e902b36d479680c4ec5e9a912b00', '27224 Melody Junction', '92415', 'San Bernardino', 'California', 'United States');
