@@ -20,7 +20,7 @@ class AnswerModel(db.Model):
 
     @classmethod
     def find_by_id(cls, review_id):
-        return cls.query.filter_by(review_id=review_id).first()
+        return db.engine.execute("SELECT * FROM Answer WHERE review_id=%s", (review_id)).fetchone()
 
 
 class AnswerSchema(ma.Schema):
