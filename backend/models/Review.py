@@ -25,20 +25,22 @@ class ReviewModel(db.Model):
     def save_to_db(self):
         db.engine.execute("INSERT INTO `Review` (title, comment, rating, cws_id, coworker_id) VALUES (%s,%s,%s,%s,%s)",
                            (self.title, self.comment, self.rating, self.cws_id, self.coworker_id))
-        db.session.commit()
 
     @classmethod
-    def find_by_cws_id_and_coworker_id(cls, cws_id, coworker_id):
-        return cls.query.filter_by(cws_id=cws_id, coworker_id=coworker_id).first()
+    def get_all(cls):
+        return db.engine.execute("SELECT * FROM Review").fetchall()
 
     @classmethod
     def find_by_id(cls, review_id):
-        return cls.query.filter_by(review_id=review_id).first()
+        return db.engine.execute("SELECT * FROM Review WHERE review_id=%s", (review_id)).fetchone()
         
+    @classmethod
+    def find_by_cwsId_coworkerId(cls, cws_id, coworker_id):
+        return db.engine.execute("SELECT * FROM Review WHERE cws_id=%s AND coworker_id=%s", (cws_id, coworker_id)).fetchone()
 
     @classmethod
     def find_by_cwspace(cls, cws_id):
-        return cls.query.filter_by(cws_id=cws_id).all()
+        return db.engine.execute("SELECT * FROM Review WHERE cws_id=%s", (cws_id)).fetchall()
 
 
 class ReviewSchema(ma.Schema):
