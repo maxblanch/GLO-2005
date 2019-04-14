@@ -136,6 +136,11 @@ ON CoworkingSpace (country)
 USING HASH;
 
 
+CREATE INDEX review_rating_ix
+ON Review (rating)
+USING BTREE;
+
+
 
 
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (1, 'Kata', 'Mateuszczyk', 'kmateuszczyk0@prlog.org', 'Female', 'kmateuszczyk0', '5f6fa20bc92f04e8757afb3719e9ee87', '70 Derek Street', '06010', 'Badajoz', 'Extremadura', 'Spain');
