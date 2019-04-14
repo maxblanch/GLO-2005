@@ -20,17 +20,17 @@ CREATE TABLE `Coworker`
 CREATE TABLE `Manager`
 (
   `manager_id` integer NOT NULL AUTO_INCREMENT ,
-	`first_name` VARCHAR(45),
-	`last_name` VARCHAR(45),
-	`email` VARCHAR(45),
-  `gender` VARCHAR(45),
-  `username` VARCHAR(45),
-  `password` VARCHAR(60),
-	`address` VARCHAR(45),
-	`postal_area` VARCHAR(45),
-	`city` VARCHAR(45),
-	`state` VARCHAR(45),
-	`country` VARCHAR(45),
+	`first_name` VARCHAR(45) NOT NULL ,
+	`last_name` VARCHAR(45) NOT NULL ,
+	`email` VARCHAR(45) NOT NULL UNIQUE,
+  `gender` VARCHAR(45) NOT NULL ,
+  `username` VARCHAR(45) NOT NULL UNIQUE,
+  `password` VARCHAR(60) NOT NULL ,
+	`address` VARCHAR(45) NOT NULL ,
+	`postal_area` VARCHAR(45) NOT NULL ,
+	`city` VARCHAR(45) NOT NULL ,
+	`state` VARCHAR(45) NOT NULL ,
+	`country` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`manager_id`)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE `CoworkingSpace`
 (
   `cws_id`      integer NOT NULL AUTO_INCREMENT,
   `name`        varchar(45) NOT NULL ,
-  `address`     varchar(45) NOT NULL ,
+  `address`     varchar(45) NOT NULL UNIQUE ,
   `image_url`   varchar(2083) ,
   `currency`    char(3) NOT NULL ,
   `day_price`   integer NOT NULL ,
@@ -80,6 +80,24 @@ CREATE TABLE `Answer` (
   FOREIGN KEY (`manager_id`) REFERENCES `Manager` (`manager_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   FOREIGN KEY (`review_id`) REFERENCES  `Review` (`review_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
+
+DELIMITER ;;
+CREATE TRIGGER `update_rating` AFTER INSERT ON `Review` FOR EACH ROW
+BEGIN
+  UPDATE CoworkingSpace
+    SET CoworkingSpace.rating = (SELECT ROUND(avg(rating),2) FROM Review WHERE cws_id = NEW.cws_id GROUP BY cws_id)
+    WHERE CoworkingSpace.cws_id = NEW.cws_id;
+END;;
+DELIMITER ;
+
+DELIMITER ;;
+CREATE TRIGGER `valid_rating` BEFORE INSERT ON `Review` FOR EACH ROW
+BEGIN
+  IF NEW.rating < 0 OR NEW.rating > 5
+    THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Rating value must be between 0 and 5 included';
+  END IF;
+END;;
+DELIMITER ;
 
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (1, 'Kata', 'Mateuszczyk', 'kmateuszczyk0@prlog.org', 'Female', 'kmateuszczyk0', '5f6fa20bc92f04e8757afb3719e9ee87', '70 Derek Street', '06010', 'Badajoz', 'Extremadura', 'Spain');
 insert into Manager (manager_id, first_name, last_name, email, gender, username, password, address, postal_area, city, state, country) values (2, 'Chaim', 'Paxman', 'cpaxman1@privacy.gov.au', 'Male', 'cpaxman1', 'a94143d8b0c994c12dcb108a4bef1506', '8681 Caliangt Point', '30103', 'San Francisco', 'Chiapas', 'Mexico');

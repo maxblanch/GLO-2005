@@ -1,4 +1,5 @@
 from flask import jsonify
+from sqlalchemy.exc import DatabaseError
 from flask_restful import Resource, reqparse, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.Review import ReviewModel, ReviewSchema
@@ -29,8 +30,8 @@ class Reviews(Resource):
         review_data['rating'], review_data['cws_id'], token_data[1])
         try:
             review.save_to_db()
-        except:
-            return {"message": "User already did a review for this coworking space"}, 400
+        except DatabaseError as err:
+            return {"message": "Rating must be a number between 0 and 5"}, 400
         return {"message": f"Review created successfully.",
                 "cws_id": review.cws_id,
                 "coworker_id": review.coworker_id}, 201
