@@ -10,7 +10,7 @@ CREATE TABLE `Coworker`
   `username`    VARCHAR(45) NOT NULL UNIQUE ,
 	`password`    VARCHAR(60) NOT NULL ,
   `address`     varchar(45) NOT NULL ,
-  `postal_area` varchar(10) NOT NULL ,
+  `postal_area` varchar(45) NOT NULL ,
   `city`        varchar(45) NOT NULL ,
   `state`       varchar(45) NOT NULL ,
   `country`     varchar(45) NOT NULL ,
@@ -27,7 +27,7 @@ CREATE TABLE `Manager`
   `username` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(60) NOT NULL ,
 	`address` VARCHAR(45) NOT NULL ,
-	`postal_area` VARCHAR(10) NOT NULL ,
+	`postal_area` VARCHAR(45) NOT NULL ,
 	`city` VARCHAR(45) NOT NULL ,
 	`state` VARCHAR(45) NOT NULL ,
 	`country` VARCHAR(45) NOT NULL ,
@@ -44,7 +44,7 @@ CREATE TABLE `CoworkingSpace`
   `day_price`   integer unsigned NOT NULL ,
   `description` varchar(2000) NOT NULL ,
   `rating`      float unsigned ,
-  `postal_area` varchar(10) NOT NULL ,
+  `postal_area` varchar(45) NOT NULL ,
   `city`        varchar(45) NOT NULL ,
   `state`       varchar(45) NOT NULL ,
   `country`     varchar(45) NOT NULL ,
@@ -103,7 +103,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER `valid_cw_gender` BEFORE INSERT ON `Coworker` FOR EACH ROW
 BEGIN
-  IF NEW.gender != "Male" OR NEW.gender != "Female"
+  IF NEW.gender != "Male" AND NEW.gender != "Female"
     THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Gender must be Male or Female';
   END IF;
 END;;
@@ -112,7 +112,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER `valid_manager_gender` BEFORE INSERT ON `Manager` FOR EACH ROW
 BEGIN
-  IF NEW.gender != "Male" OR NEW.gender != "Female"
+  IF NEW.gender != "Male" AND NEW.gender != "Female"
     THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Gender must be Male or Female';
   END IF;
 END;;
