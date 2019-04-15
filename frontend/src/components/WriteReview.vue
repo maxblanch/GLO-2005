@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="isLoggedIn">
+  <v-container v-if="isCoworker">
     <h1 class="white--text">Leave a review</h1>
     <v-form justify-center class="elevation-10" v-model="valid" ref="form">
       <v-text-field
@@ -68,6 +68,12 @@ export default {
     },
     currentUser: function() {
       return this.$store.getters.currentUser;
+    },
+    accountType: function() {
+      return this.$store.getters.accountType;
+    },
+    isCoworker() {
+      return this.accountType === "coworker";
     }
   },
   methods: {
@@ -80,10 +86,10 @@ export default {
       };
       cwspaceAPI
         .postReview(review)
-        // .then(({ data }) => console.log(data))
         .then(({ data }) => this.onReviewPosted(data))
         .catch(({ response }) => alert(response.data.message));
     },
+
     onReviewPosted(event) {
       this.$emit("reviewposted", event);
     }
