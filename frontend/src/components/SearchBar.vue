@@ -1,6 +1,7 @@
 <template>
   <v-text-field
-    prepend-icon="location_on"
+    solo
+    prepend-inner-icon="location_on"
     name="searchSpace"
     placeholder="Search by City, Country or Space..."
     type="text"

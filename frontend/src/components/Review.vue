@@ -15,12 +15,6 @@
       </v-layout>
     </v-container>
   </v-layout>
-  <!--  <div class="elevation-10">-->
-  <!--    <h1 class="white&#45;&#45;text">"{{ review.title }}"</h1>-->
-  <!--    <h1 class="white&#45;&#45;text">-->
-  <!--      {{ author.username }}-->
-  <!--    </h1>-->
-  <!--  </div>-->
 </template>
 
 <script>

@@ -6,14 +6,17 @@
     <div v-else v-for="review in reviews">
       <Review :review="review"></Review>
     </div>
+    <v-spacer></v-spacer>
+    <WriteReview></WriteReview>
   </div>
 </template>
 
 <script>
 import Review from "@/components/Review";
+import WriteReview from "@/components/WriteReview";
 export default {
   name: "Reviews",
-  components: { Review },
+  components: { Review, WriteReview },
   props: ["reviews"]
 };
 </script>
