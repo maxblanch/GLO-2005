@@ -33,14 +33,7 @@ const postReview = review =>
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json"
     }
-  })
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-
-// axios
-//   .post(reviewsRoot, review)
-//   .then(res => console.log(res))
-//   .catch(err => console.log(err));
+  });
 
 export default {
   getAll,

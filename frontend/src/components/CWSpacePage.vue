@@ -7,7 +7,10 @@
       <Reviews :reviews="reviews" />
     </AsyncContent>
     <AsyncContent :request-state="requestState" dataName="cwspace info">
-      <WriteReview :cwsId="cwspace.cwsId" />
+      <WriteReview
+        @reviewposted="handleNewReviewPosted"
+        :cwsId="cwspace.cwsId"
+      />
     </AsyncContent>
   </div>
 </template>
@@ -56,6 +59,12 @@ export default {
     setReviewError(_err) {
       console.log(_err.response.data.message);
       this.reviews = { Error: true, errorMessage: _err.response.data.message };
+    },
+    handleNewReviewPosted(value) {
+      cwspaceAPI
+        .getReviews(value.cws_id)
+        .then(this.setReviews)
+        .catch(this.setReviewError);
     }
   }
 };

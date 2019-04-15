@@ -37,6 +37,12 @@
       >
     </v-form>
   </v-container>
+  <v-container v-else>
+    <h1 class="white--text">Leave a review</h1>
+    <h3 class="white--text">
+      You must be signed in as a coworker to leave a review
+    </h3>
+  </v-container>
 </template>
 
 <script>
@@ -72,7 +78,14 @@ export default {
         rating: this.rating,
         cws_id: this.cwsId
       };
-      cwspaceAPI.postReview(review);
+      cwspaceAPI
+        .postReview(review)
+        // .then(({ data }) => console.log(data))
+        .then(({ data }) => this.onReviewPosted(data))
+        .catch(({ response }) => alert(response.data.message));
+    },
+    onReviewPosted(event) {
+      this.$emit("reviewposted", event);
     }
   }
 };
