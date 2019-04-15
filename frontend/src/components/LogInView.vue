@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height class="login" @submit.prevent="login">
     <v-layout flex align-center justify-center>
-      <v-flex xs12 sm4 elevation-6>
+      <v-flex xs12 sm4 elevation-6 style="max-width: 80%">
         <v-toolbar class="pt-5 primary darken-1">
           <v-toolbar-title class="white--text"
             ><h4>Welcome Home, Ashen One</h4></v-toolbar-title
@@ -39,7 +39,7 @@
                     >Login</v-btn
                   >
                   <router-link to="/signup"
-                    >You don't already have an account?</router-link
+                    >Create an account for free!</router-link
                   >
                 </v-layout>
               </v-form>

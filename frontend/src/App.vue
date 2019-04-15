@@ -24,4 +24,11 @@ export default {
   color: #2c3e50;
   /*margin-top: 60px;*/
 }
+  .is-danger{
+    color: #42b983;
+  }
+
+  .v-btn--active{
+    background-color: #42b983;
+  }
 </style>

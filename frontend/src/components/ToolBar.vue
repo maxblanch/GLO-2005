@@ -107,7 +107,7 @@ export default {
       drawer: false,
       items: [
         { title: "Home", icon: "dashboard", route: "/" },
-        { title: "Search", icon: "search", route: "/search" },
+        // { title: "Search", icon: "search", route: "/search" },
         {
           title: "All Cities",
           icon: "location_city",
