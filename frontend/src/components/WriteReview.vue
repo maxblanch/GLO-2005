@@ -52,7 +52,7 @@ export default {
       titleRules: [v => !!v || "Title is required"],
       comment: "un commentaire",
       commentRules: [v => !!v || "Comment is required"],
-      rating: "3",
+      rating: 3,
       ratingRules: [v => !!v || "Rating is required"]
     };
   },

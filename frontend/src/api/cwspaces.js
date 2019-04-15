@@ -25,10 +25,22 @@ const search = query =>
   axios.get(`${cwspacesRoot}/${query}`).then(({ data }) => cwspaces.from(data));
 
 const postReview = review =>
-  axios
-    .post(reviewsRoot, review)
+  axios({
+    method: "POST",
+    url: reviewsRoot,
+    data: review,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    }
+  })
     .then(res => console.log(res))
     .catch(err => console.log(err));
+
+// axios
+//   .post(reviewsRoot, review)
+//   .then(res => console.log(res))
+//   .catch(err => console.log(err));
 
 export default {
   getAll,
@@ -36,5 +48,10 @@ export default {
   get,
   getReviews,
   search,
-  postReview
+  postReview,
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    }
+  }
 };

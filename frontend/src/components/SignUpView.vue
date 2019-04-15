@@ -185,19 +185,6 @@ export default {
         country: this.country
       };
 
-      // console.log(`registering user \n
-      //   ${user.first_name}\n
-      //   ${user.last_name}\n
-      //   ${user.email}\n
-      //   ${user.gender}\n
-      //   ${user.username}\n
-      //   ${user.password}\n
-      //   ${user.address}\n
-      //   ${user.postal_area}\n
-      //   ${user.city}\n
-      //   ${user.state}\n
-      //   ${user.country}\n`);
-
       this.$store
         .dispatch(`register${this.accountType}`, user)
         .then(res => {
