@@ -6,6 +6,7 @@
           <v-flex
             xs12
             v-for="cwspace in cwspaces"
+            :key="cwspace.cwsId"
             @click="goToSpace(cwspace.cwsId)"
           >
             <v-card class="white--text elevation-10 grey darken-3">
