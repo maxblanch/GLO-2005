@@ -15,7 +15,8 @@ const cwspace = {
       postalArea: cwspaceData.postal_area,
       rating: cwspaceData.rating,
       state: cwspaceData.state,
-      weekPrice: cwspaceData.week_price
+      weekPrice: cwspaceData.week_price,
+      cityRoute: `/cities/${cwspaceData.city}`
     };
   }
 };

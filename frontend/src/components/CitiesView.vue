@@ -3,12 +3,10 @@
     <v-container>
       <v-layout justify-center>
         <div>
-          <h1
-            @click="goToCity(cwspace.city)"
-            class="white--text"
-            v-for="cwspace in cwspaces"
-          >
-            {{ cwspace.city }}
+          <h1 v-for="cwspace in cwspaces">
+            <router-link :to="cwspace.cityRoute">
+              {{ cwspace.city }}
+            </router-link>
           </h1>
         </div>
       </v-layout>
