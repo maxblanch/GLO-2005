@@ -6,6 +6,9 @@
     <AsyncContent :request-state="requestState" dataName="reviews info">
       <Reviews :reviews="reviews" />
     </AsyncContent>
+    <AsyncContent :request-state="requestState" dataName="cwspace info">
+      <WriteReview :cwsId="cwspace.cwsId" />
+    </AsyncContent>
   </div>
 </template>
 
@@ -15,10 +18,11 @@ import cwspaceAPI from "@/api/cwspaces";
 import AsyncContent from "@/components/utils/Async/AsyncContent";
 import CWSpaceInfo from "@/components/CWSpaceInfo";
 import Reviews from "@/components/Reviews";
+import WriteReview from "./WriteReview";
 
 export default {
   name: "CWSpace",
-  components: { Reviews, CWSpaceInfo, AsyncContent },
+  components: { WriteReview, Reviews, CWSpaceInfo, AsyncContent },
   data() {
     return {
       id: this.$route.params.id,

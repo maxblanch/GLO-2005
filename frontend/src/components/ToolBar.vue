@@ -122,9 +122,7 @@ export default {
     };
   },
   name: "ToolBar",
-  props: {
-    title: String
-  }
+  props: ["title"]
 };
 </script>
 

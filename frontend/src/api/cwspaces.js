@@ -24,10 +24,17 @@ const getReviews = cwsId =>
 const search = query =>
   axios.get(`${cwspacesRoot}/${query}`).then(({ data }) => cwspaces.from(data));
 
+const postReview = review =>
+  axios
+    .post(reviewsRoot, review)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+
 export default {
   getAll,
   getByCity,
   get,
   getReviews,
-  search
+  search,
+  postReview
 };

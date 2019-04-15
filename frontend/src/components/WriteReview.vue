@@ -1,24 +1,34 @@
 <template>
   <v-container v-if="isLoggedIn">
     <h1 class="white--text">Leave a review</h1>
-    <v-form justify-center class="elevation-10">
+    <v-form justify-center class="elevation-10" v-model="valid" ref="form">
       <v-text-field
         placeholder="Give it a title"
         label="Title"
         box
         v-model="title"
+        :rules="titleRules"
+        required
       ></v-text-field>
       <v-textarea
         box
         auto-grow
         placeholder="How did you enjoy this space?"
-        label="Review"
-        v-model="review"
+        label="Comment"
+        v-model="comment"
+        :rules="commentRules"
+        required
       ></v-textarea>
 
-      <v-rating hover size="32"></v-rating>
+      <v-rating
+        hover
+        size="32"
+        v-model="rating"
+        :rules="ratingRules"
+      ></v-rating>
 
       <v-btn
+        @click="postReview"
         :class="{
           primary: valid,
           disabled: !valid
@@ -30,12 +40,20 @@
 </template>
 
 <script>
+import cwspaceAPI from "@/api/cwspaces";
+
 export default {
   name: "WriteReview",
+  props: ["cwsId"],
   data() {
     return {
+      valid: false,
       title: "une titre",
-      review: "un commentaire"
+      titleRules: [v => !!v || "Title is required"],
+      comment: "un commentaire",
+      commentRules: [v => !!v || "Comment is required"],
+      rating: "3",
+      ratingRules: [v => !!v || "Rating is required"]
     };
   },
   computed: {
@@ -44,6 +62,17 @@ export default {
     },
     currentUser: function() {
       return this.$store.getters.currentUser;
+    }
+  },
+  methods: {
+    postReview() {
+      const review = {
+        title: this.title,
+        comment: this.comment,
+        rating: this.rating,
+        cws_id: this.cwsId
+      };
+      cwspaceAPI.postReview(review);
     }
   }
 };

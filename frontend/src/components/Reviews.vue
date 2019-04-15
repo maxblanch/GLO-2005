@@ -7,16 +7,14 @@
       <Review :review="review"></Review>
     </div>
     <v-spacer></v-spacer>
-    <WriteReview></WriteReview>
   </div>
 </template>
 
 <script>
 import Review from "@/components/Review";
-import WriteReview from "@/components/WriteReview";
 export default {
   name: "Reviews",
-  components: { Review, WriteReview },
+  components: { Review },
   props: ["reviews"]
 };
 </script>
