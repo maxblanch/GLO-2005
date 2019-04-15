@@ -112,6 +112,9 @@
                     }"
                     >Sign Up</v-btn
                   >
+                  <router-link to="/login"
+                  >Already have an account?</router-link
+                  >
                 </v-layout>
               </v-form>
             </div>

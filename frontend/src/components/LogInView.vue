@@ -39,7 +39,7 @@
                     >Login</v-btn
                   >
                   <router-link to="/signup"
-                    >You don't already have an account?</router-link
+                    >Create an account for free!</router-link
                   >
                 </v-layout>
               </v-form>
