@@ -11,14 +11,19 @@
           </p>
           <h3 class="white--text">{{ cwspace.description }}</h3>
 
-          <v-data-table :headers="headers" :items="options" class="elevation-1">
+          <v-data-table
+            :headers="headers"
+            :items="options"
+            class="elevation-1"
+            hide-actions
+          >
             <template v-slot:items="props">
               <td>{{ props.item.num }}</td>
               <td>{{ props.item.duration }}</td>
               <td>{{ props.item.price }}</td>
-              <td>
-                <v-btn class="primary white--text">Reserve</v-btn>
-              </td>
+              <!--              <td>-->
+              <!--                <v-btn class="primary white&#45;&#45;text">Reserve</v-btn>-->
+              <!--              </td>-->
             </template>
           </v-data-table>
         </div>
@@ -36,8 +41,8 @@ export default {
       headers: [
         { text: "# PEOPLE", value: "num" },
         { text: "DURATION", value: "duration" },
-        { text: "PRICE", value: "price" },
-        { text: "AVAILABILITY" }
+        { text: "PRICE", value: "price" }
+        // { text: "AVAILABILITY" }
       ],
       options: [
         {

@@ -3,14 +3,9 @@
     <v-card>
       <v-container fluid grid-list-lg style="max-width: 80%; ">
         <v-layout row wrap>
-          <v-flex
-            xs12
-            v-for="cwspace in cwspaces"
-            :key="cwspace.cwsId"
-            @click="goToSpace(cwspace.cwsId)"
-          >
+          <v-flex xs12 v-for="cwspace in cwspaces" :key="cwspace.cwsId">
             <v-card class="white--text elevation-10 grey darken-3">
-              <v-layout>
+              <v-layout @click="goToSpace(cwspace.cwsId)">
                 <v-flex xs5>
                   <v-img :src="cwspace.imageUrl" height="125px" contain></v-img>
                 </v-flex>
