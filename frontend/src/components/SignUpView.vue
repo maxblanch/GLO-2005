@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-layout flex align-center justify-center>
-      <v-flex xs12 sm4 elevation-6>
+      <v-flex xs12 sm4 elevation-6 style="max-width: 80%">
         <v-toolbar class="pt-5 primary darken-1">
           <v-toolbar-title class="white--text"
             ><h4>Welcome to the family, son!</h4></v-toolbar-title
@@ -136,7 +136,7 @@ export default {
       firstNameRules: [v => !!v || "First name is required"],
       lastName: "Jack",
       lastNameRules: [v => !!v || "Last name is required"],
-      email: "asstomouth@gmail.com",
+      email: "yeehaw@gmail.com",
       emailRules: [
         v => !!v || "E-mail is required",
         v =>
@@ -145,7 +145,7 @@ export default {
       ],
       gender: "",
       genderRules: [v => !!v || "Gender is required"],
-      username: "Ashen One",
+      username: "Ashen One5",
       usernameRules: [v => !!v || "Username is required"],
       password: "sekiro",
       passwordRules: [v => !!v || "Password is required"],
