@@ -17,12 +17,7 @@
 <script>
 export default {
   name: "CitiesView",
-  props: ["cwspaces"],
-  methods: {
-    goToCity(city) {
-      this.$router.push(`/cities/${city}`);
-    }
-  }
+  props: ["cwspaces"]
 };
 </script>
 

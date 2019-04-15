@@ -199,7 +199,7 @@ export default {
       //   ${user.country}\n`);
 
       this.$store
-        .dispatch("registerCoworker", user)
+        .dispatch(`register${this.accountType}`, user)
         .then(res => {
           console.log(res);
           this.$router.push("/");

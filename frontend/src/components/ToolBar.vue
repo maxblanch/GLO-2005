@@ -41,7 +41,9 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>{{ currentUser }}</v-list-tile-title>
+              <v-list-tile-title
+                >{{ accountType }} {{ currentUser }}</v-list-tile-title
+              >
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -95,6 +97,9 @@ export default {
     },
     currentUser: function() {
       return this.$store.getters.currentUser;
+    },
+    accountType: function() {
+      return this.$store.getters.accountType;
     }
   },
   methods: {
