@@ -68,13 +68,13 @@
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
-        <v-list-tile v-if="isManager" to="/cwspaces">
+        <v-list-tile v-if="isManager" to="/mySpaces">
           <v-list-tile-action>
             <v-icon>search</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>Your Workspaces</v-list-tile-title>
+            <v-list-tile-title>My Workspaces</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
