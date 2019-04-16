@@ -12,10 +12,10 @@
             Review left by: {{ author.username }} on: {{ review.date }}
           </p>
 
-          <h2 class="white--text">
+          <h2 class="white--text" v-if="hasReply">
             {{ manager.username }} replied to this review
           </h2>
-          <p class="white--text">
+          <p class="white--text" v-if="hasReply">
             {{ reply.comment }}
           </p>
 
@@ -35,7 +35,7 @@ export default {
   components: { WriteReply },
   props: ["review", "manager"],
   data() {
-    return { author: {}, reply: {} };
+    return { author: {}, reply: {}, hasReply: true };
   },
   mounted() {
     CoworkerAPI.get(this.review.coworkerId)
@@ -44,7 +44,10 @@ export default {
     cwspaceAPI
       .getReply(this.review.reviewId)
       .then(this.setReply)
-      .catch(({ response }) => console.log(response.data.message));
+      .catch(({ response }) => {
+        this.hasReply = false;
+        console.log(response.data.message);
+      });
   },
   methods: {
     setReviewAuthor(author) {
