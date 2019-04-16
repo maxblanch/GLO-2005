@@ -3,11 +3,13 @@ import { apiRoot } from "@/api/constants";
 import cwspaces from "../models/cwspaces";
 import cwspace from "../models/cwspace";
 import reviews from "../models/reviews";
+import reply from "../models/reply";
 
 const cwspacesRoot = `${apiRoot}/cwspaces`;
 const cwspaceRoot = `${apiRoot}/cwspace`;
 const reviewsRoot = `${apiRoot}/reviews`;
 const cityRoot = `${cwspacesRoot}/city`;
+const replyRoot = `${apiRoot}/answer`;
 
 const getAll = () =>
   axios.get(cwspacesRoot).then(({ data }) => cwspaces.from(data));
@@ -20,6 +22,9 @@ const get = cwsId =>
 
 const getReviews = cwsId =>
   axios.get(`${reviewsRoot}/${cwsId}`).then(({ data }) => reviews.from(data));
+
+const getReply = reviewId =>
+  axios.get(`${replyRoot}/${reviewId}`).then(({ data }) => reply.from(data));
 
 const search = query =>
   axios.get(`${cwspacesRoot}/${query}`).then(({ data }) => cwspaces.from(data));
@@ -42,9 +47,10 @@ export default {
   getReviews,
   search,
   postReview,
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    }
-  }
+  getReply
+  // computed: {
+  //   isLoggedIn: function() {
+  //     return this.$store.getters.isLoggedIn;
+  //   }
+  // }
 };

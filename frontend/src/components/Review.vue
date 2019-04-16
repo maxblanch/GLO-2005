@@ -9,9 +9,15 @@
             {{ review.comment }}
           </p>
           <p class="white--text">
-            Review left by{{ author.username }} on {{ review.date }}
+            Review left by: {{ author.username }} on: {{ review.date }}
           </p>
-          <WriteReply></WriteReply>
+
+          <h2 class="white--text">big boi replied to this review</h2>
+          <p class="white--text">
+            {{ reply.comment }}
+          </p>
+
+          <!--          <WriteReply></WriteReply>-->
         </div>
       </v-layout>
     </v-container>
@@ -20,20 +26,30 @@
 
 <script>
 import CoworkerAPI from "../api/coworker";
+import ManagerAPI from "../api/manager";
+import cwspaceAPI from "../api/cwspaces";
 import WriteReply from "@/components/WriteReply";
 export default {
   name: "Review",
   components: { WriteReply },
   props: ["review"],
   data() {
-    return { author: {} };
+    return { author: {}, reply: {}, replyAuthor: {} };
   },
   mounted() {
-    CoworkerAPI.get(this.review.coworkerId).then(this.setAuthor);
+    CoworkerAPI.get(this.review.coworkerId).then(this.setReviewAuthor);
+    cwspaceAPI
+      .getReply(this.review.reviewId)
+      .then(this.setReply)
+      .catch(({ response }) => console.log(response.data.message));
+    ManagerAPI.get(this.reply.managerId).then(({ data }) => console.log(data));
   },
   methods: {
-    setAuthor(author) {
+    setReviewAuthor(author) {
       this.author = author;
+    },
+    setReply(reply) {
+      this.reply = reply;
     }
   }
 };
