@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-form v-if="isManager" v-model="valid" ref="form">
+    <v-form v-model="valid" ref="form">
       <v-textarea
         box
         auto-grow
@@ -33,20 +33,6 @@ export default {
       reply: "no buli",
       replyRules: [v => !!v || "Reply is required"]
     };
-  },
-  computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    },
-    currentUser: function() {
-      return this.$store.getters.currentUser;
-    },
-    accountType: function() {
-      return this.$store.getters.accountType;
-    },
-    isManager: function() {
-      return this.accountType === "manager";
-    }
   },
   methods: {
     postReply() {

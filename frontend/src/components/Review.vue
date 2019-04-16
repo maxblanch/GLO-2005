@@ -19,7 +19,7 @@
             {{ reply.comment }}
           </p>
 
-          <!--          <WriteReply></WriteReply>-->
+          <WriteReply v-if="isOwner"></WriteReply>
         </div>
       </v-layout>
     </v-container>
@@ -52,6 +52,14 @@ export default {
     },
     setReply(reply) {
       this.reply = reply;
+    }
+  },
+  computed: {
+    currentUser: function() {
+      return this.$store.getters.currentUser;
+    },
+    isOwner: function() {
+      return this.currentUser === this.manager.managerId;
     }
   }
 };
