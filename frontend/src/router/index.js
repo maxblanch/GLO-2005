@@ -9,6 +9,7 @@ import CWSpaceAll from "@/components/CWSpaceAll";
 import SearchResults from "@/components/SearchResults";
 import City from "@/components/City";
 import About from "@/components/About";
+import MyAccount from "@/components/MyAccount";
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
       path: "/about",
       name: "About",
       component: About
+    },
+    {
+      path: "/:username",
+      name: "MyAccount",
+      component: MyAccount
     }
   ]
 });
