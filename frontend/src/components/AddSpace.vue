@@ -195,6 +195,7 @@ export default {
 
       console.log("creating workspace");
       console.log(cwspace);
+
       cwspaceAPI
         .addSpace(cwspace)
         .then(res => console.log(res))

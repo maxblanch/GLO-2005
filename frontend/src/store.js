@@ -8,12 +8,12 @@ export default new Vuex.Store({
   state: {
     status: "",
     token: localStorage.getItem("token") || "",
-    username: "",
-    type: "",
-    id: ""
-    // username: localStorage.getItem("username") || "",
-    // type: localStorage.getItem("accountType") || "",
-    // id: localStorage.getItem("id") || ""
+    // username: "",
+    // type: "",
+    // id: ""
+    username: localStorage.getItem("username") || "",
+    type: localStorage.getItem("accountType") || "",
+    id: localStorage.getItem("id") || ""
   },
   mutations: {
     auth_request(state) {
