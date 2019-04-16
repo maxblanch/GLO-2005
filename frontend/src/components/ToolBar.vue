@@ -34,14 +34,18 @@
             <v-icon left>input</v-icon>
             <span>Log In</span>
           </v-btn>
-          <v-btn v-if="isLoggedIn" to="/addSpace">
+          <v-btn to="/addSpace">
             <v-icon left>add</v-icon>
             <span>Add your space</span>
           </v-btn>
-          <v-btn v-else to="/login">
-            <v-icon left>add</v-icon>
-            <span>Add your space</span>
-          </v-btn>
+          <!--          <v-btn v-if="isLoggedIn" to="/addSpace">-->
+          <!--            <v-icon left>add</v-icon>-->
+          <!--            <span>Add your space</span>-->
+          <!--          </v-btn>-->
+          <!--          <v-btn v-else to="/login">-->
+          <!--            <v-icon left>add</v-icon>-->
+          <!--            <span>Add your space</span>-->
+          <!--          </v-btn>-->
         </v-toolbar-items>
       </v-toolbar>
     </v-responsive>
@@ -154,7 +158,7 @@ export default {
         {
           title: "Add your space",
           icon: "add",
-          route: ""
+          route: "/addSpace"
         },
         // { title: "Search", icon: "search", route: "/search" },
         {

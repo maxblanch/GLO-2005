@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-layout flex align-center justify-center>
-      <v-flex xs12 sm4 elevation-6 style="max-width: 80%">
+      <v-flex xs12 sm4 elevation-6 style="max-width: 80%" v-if="isManager">
         <v-toolbar class="pt-5 primary darken-1">
           <v-toolbar-title class="white--text"
             ><h4>New workspace</h4></v-toolbar-title
@@ -117,6 +117,15 @@
           </v-card-text>
         </v-card>
       </v-flex>
+
+      <v-flex v-else>
+        <h1 class="white--text">
+          You must be logged in as a manager to add spaces
+        </h1>
+        <router-link to="/signup"
+          >Create a free manager account now!</router-link
+        >
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -193,6 +202,17 @@ export default {
           console.log(err.response);
           alert(err.response.data.msg);
         });
+    }
+  },
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    },
+    accountType: function() {
+      return this.$store.getters.accountType;
+    },
+    isManager: function() {
+      return this.accountType === "manager";
     }
   }
 };
