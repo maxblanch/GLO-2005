@@ -4,7 +4,7 @@
       {{ reviews.errorMessage }}
     </h1>
     <div v-else v-for="review in reviews">
-      <Review :review="review"></Review>
+      <Review :review="review" :manager="manager"></Review>
     </div>
     <v-spacer></v-spacer>
   </div>
@@ -15,7 +15,7 @@ import Review from "@/components/Review";
 export default {
   name: "Reviews",
   components: { Review },
-  props: ["reviews"]
+  props: ["reviews", "manager"]
 };
 </script>
 

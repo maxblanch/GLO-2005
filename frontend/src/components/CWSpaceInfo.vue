@@ -4,7 +4,9 @@
       <v-layout justify-center>
         <div>
           <img :src="cwspace.imageUrl" alt="iorem" />
-          <h1 class="white--text">{{ cwspace.name }}</h1>
+          <h1 class="white--text">
+            {{ manager.username }}'s {{ cwspace.name }}
+          </h1>
           <p class="white--text">
             {{ cwspace.address }}, {{ cwspace.city }}, {{ cwspace.state }},
             {{ cwspace.country }}
@@ -35,7 +37,7 @@
 <script>
 export default {
   name: "CWSpaceInfo",
-  props: ["cwspace"],
+  props: ["cwspace", "manager"],
   data() {
     return {
       headers: [

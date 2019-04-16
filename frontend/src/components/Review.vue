@@ -13,7 +13,7 @@
           </p>
 
           <h2 class="white--text">
-            {{ replyAuthor.username }} replied to this review
+            {{ manager.username }} replied to this review
           </h2>
           <p class="white--text">
             {{ reply.comment }}
@@ -28,15 +28,14 @@
 
 <script>
 import CoworkerAPI from "../api/coworker";
-import ManagerAPI from "../api/manager";
 import cwspaceAPI from "../api/cwspaces";
 import WriteReply from "@/components/WriteReply";
 export default {
   name: "Review",
   components: { WriteReply },
-  props: ["review"],
+  props: ["review", "manager"],
   data() {
-    return { author: {}, reply: {}, replyAuthor: {} };
+    return { author: {}, reply: {} };
   },
   mounted() {
     CoworkerAPI.get(this.review.coworkerId)
@@ -46,10 +45,6 @@ export default {
       .getReply(this.review.reviewId)
       .then(this.setReply)
       .catch(({ response }) => console.log(response.data.message));
-    cwspaceAPI
-      .getReply(this.review.reviewId)
-      .then(res => ManagerAPI.get(res.managerId).then(this.setReplyAuthor))
-      .catch(({ response }) => console.log(response.data.message));
   },
   methods: {
     setReviewAuthor(author) {
@@ -57,9 +52,6 @@ export default {
     },
     setReply(reply) {
       this.reply = reply;
-    },
-    setReplyAuthor(replyAuthor) {
-      this.replyAuthor = replyAuthor;
     }
   }
 };

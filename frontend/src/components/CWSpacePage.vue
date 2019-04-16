@@ -1,10 +1,10 @@
 <template>
   <div>
     <AsyncContent :request-state="requestState" dataName="cwspace info">
-      <CWSpaceInfo :cwspace="cwspace" />
+      <CWSpaceInfo :cwspace="cwspace" :manager="manager" />
     </AsyncContent>
     <AsyncContent :request-state="requestState" dataName="reviews info">
-      <Reviews :reviews="reviews" />
+      <Reviews :reviews="reviews" :manager="manager" />
     </AsyncContent>
     <AsyncContent :request-state="requestState" dataName="cwspace info">
       <WriteReview
@@ -18,6 +18,7 @@
 <script>
 import RequestState from "@/components/utils/Async/requestState";
 import cwspaceAPI from "@/api/cwspaces";
+import ManagerAPI from "@/api/manager";
 import AsyncContent from "@/components/utils/Async/AsyncContent";
 import CWSpaceInfo from "@/components/CWSpaceInfo";
 import Reviews from "@/components/Reviews";
@@ -31,6 +32,7 @@ export default {
       id: this.$route.params.id,
       cwspace: {},
       reviews: {},
+      manager: {},
       requestState: RequestState.LOADING
     };
   },
@@ -43,6 +45,11 @@ export default {
       .getReviews(this.id)
       .then(this.setReviews)
       .catch(this.setReviewError);
+
+    cwspaceAPI
+      .get(this.id)
+      .then(res => ManagerAPI.get(res.managerId).then(this.setManager))
+      .catch(({ response }) => console.log(response.data.message));
   },
   methods: {
     setCWSpace(cwspace) {
@@ -51,6 +58,10 @@ export default {
     },
     setReviews(reviews) {
       this.reviews = reviews;
+      this.requestState = RequestState.LOADED;
+    },
+    setManager(manager) {
+      this.manager = manager;
       this.requestState = RequestState.LOADED;
     },
     setError(_err) {
