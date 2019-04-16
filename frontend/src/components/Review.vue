@@ -12,7 +12,9 @@
             Review left by: {{ author.username }} on: {{ review.date }}
           </p>
 
-          <h2 class="white--text">big boi replied to this review</h2>
+          <h2 class="white--text">
+            {{ replyAuthor.username }} replied to this review
+          </h2>
           <p class="white--text">
             {{ reply.comment }}
           </p>
@@ -37,12 +39,17 @@ export default {
     return { author: {}, reply: {}, replyAuthor: {} };
   },
   mounted() {
-    CoworkerAPI.get(this.review.coworkerId).then(this.setReviewAuthor);
+    CoworkerAPI.get(this.review.coworkerId)
+      .then(this.setReviewAuthor)
+      .catch(({ response }) => console.log(response.data.message));
     cwspaceAPI
       .getReply(this.review.reviewId)
       .then(this.setReply)
       .catch(({ response }) => console.log(response.data.message));
-    ManagerAPI.get(this.reply.managerId).then(({ data }) => console.log(data));
+    cwspaceAPI
+      .getReply(this.review.reviewId)
+      .then(res => ManagerAPI.get(res.managerId).then(this.setReplyAuthor))
+      .catch(({ response }) => console.log(response.data.message));
   },
   methods: {
     setReviewAuthor(author) {
@@ -50,6 +57,9 @@ export default {
     },
     setReply(reply) {
       this.reply = reply;
+    },
+    setReplyAuthor(replyAuthor) {
+      this.replyAuthor = replyAuthor;
     }
   }
 };

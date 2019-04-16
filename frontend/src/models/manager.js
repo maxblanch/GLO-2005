@@ -4,11 +4,11 @@ const manager = {
       address: managerData.address,
       city: managerData.city,
       country: managerData.country,
-      coworkerId: managerData.coworker_id,
       email: managerData.email,
       firstName: managerData.firstName,
       gender: managerData.gender,
       lastName: managerData.lastName,
+      managerId: managerData.manager_id,
       postalArea: managerData.postal_area,
       state: managerData.state,
       username: managerData.username
