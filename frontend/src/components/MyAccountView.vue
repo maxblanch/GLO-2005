@@ -1,101 +1,11 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">Account type</h1>
+    <v-layout row wrap v-for="item in items">
+      <v-flex xs6>
+        <h2 class="white--text">{{ item.title }}</h2>
       </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ accountType }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">First name</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.firstName }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">Last name</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.lastName }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">email</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.email }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">Gender</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.gender }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">Username</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.username }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">Address</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.address }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">Postal area</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.postalArea }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">City</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.city }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">State</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.state }}</h1>
-      </v-flex>
-    </v-layout>
-
-    <v-layout row wrap>
-      <v-flex xs4>
-        <h1 class="white--text">Country</h1>
-      </v-flex>
-      <v-flex xs4>
-        <h1 class="white--text">{{ currentUser.country }}</h1>
+      <v-flex xs6>
+        <h3 class="white--text">{{ item.value }}</h3>
       </v-flex>
     </v-layout>
 
@@ -107,10 +17,22 @@
 export default {
   name: "MyAccountView",
   props: ["currentUser"],
-  computed: {
-    accountType: function() {
-      return this.$store.getters.accountType;
-    }
+  data() {
+    return {
+      items: [
+        { title: "Account Type", value: this.$store.getters.accountType },
+        { title: "First Name", value: this.currentUser.firstName },
+        { title: "Last Name", value: this.currentUser.lastName },
+        { title: "E-mail", value: this.currentUser.email },
+        { title: "Gender", value: this.currentUser.gender },
+        { title: "Username", value: this.currentUser.username },
+        { title: "Address", value: this.currentUser.address },
+        { title: "Postal Area", value: this.currentUser.postalArea },
+        { title: "City", value: this.currentUser.city },
+        { title: "State", value: this.currentUser.state },
+        { title: "Country", value: this.currentUser.country }
+      ]
+    };
   }
 };
 </script>
