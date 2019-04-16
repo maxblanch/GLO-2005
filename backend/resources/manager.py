@@ -44,6 +44,14 @@ class Manager(Resource):
             return {'message': 'Unauthorized'}, 401
 
 
+class ManagerId(Resource):
+    def get(self, id):
+        manager = ManagerModel.find_by_id(id)
+        data = manager_schema.dump(manager).data
+        if data: return jsonify(data)
+        return {'message': 'Manager not found'}, 400
+
+
 class ManagerRegister(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('first_name', type=str, required=True, help="This field cannot be blank.")

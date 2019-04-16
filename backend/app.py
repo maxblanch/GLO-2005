@@ -8,7 +8,7 @@ from db import db, ma
 
 # Imports of RESTful Api routes Ressources
 from resources.coworker import Coworkers, Coworker, CoworkerRegister, CoworkerDelete
-from resources.manager import Managers, Manager, ManagerRegister
+from resources.manager import Managers, Manager, ManagerRegister, ManagerId
 from resources.cwspace import Cwspaces, Cwspace, CwspaceAdd, CwspacesSearch, CwspaceByCities
 from resources.review import Reviews, Review, ReviewsForCWspace
 from resources.answer import Answers, Answer, AnswerPost
@@ -38,6 +38,7 @@ api.add_resource(CoworkerRegister, '/coworker/register')
 
 api.add_resource(Managers, '/managers')
 api.add_resource(Manager, '/manager')
+api.add_resource(ManagerId, '/manager/<int:id>')
 api.add_resource(ManagerRegister, '/manager/register')
 
 api.add_resource(Cwspaces, '/cwspaces')
