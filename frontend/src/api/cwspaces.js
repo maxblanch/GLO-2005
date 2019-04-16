@@ -20,6 +20,11 @@ const getByCity = city =>
 const get = cwsId =>
   axios.get(`${cwspaceRoot}/${cwsId}`).then(({ data }) => cwspace.from(data));
 
+const getByManager = managerId =>
+  axios
+    .get(cwspacesRoot)
+    .then(({ data }) => cwspaces.fromManager(data, managerId));
+
 const getReviews = cwsId =>
   axios.get(`${reviewsRoot}/${cwsId}`).then(({ data }) => reviews.from(data));
 
@@ -50,6 +55,7 @@ export default {
   getByCity,
   get,
   getReviews,
+  getByManager,
   search,
   postReview,
   getReply,

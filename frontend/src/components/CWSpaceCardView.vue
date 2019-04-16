@@ -3,7 +3,7 @@
     <v-card>
       <v-container fluid grid-list-lg style="max-width: 80%; ">
         <v-layout row wrap>
-          <v-flex xs12 v-for="cwspace in cwspaces" :key="cwspace.cwsId">
+          <v-flex xs12 v-for="cwspace in cwspaces" v-if="cwspace">
             <v-card class="white--text elevation-10 grey darken-3">
               <v-layout @click="goToSpace(cwspace.cwsId)">
                 <v-flex xs5>
@@ -58,6 +58,9 @@ export default {
     goToSpace(id) {
       this.$router.push(`/cwspace/${id}`);
     }
+  },
+  mounted() {
+    console.log(this.cwspaces);
   }
 };
 </script>

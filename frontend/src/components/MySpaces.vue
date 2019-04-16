@@ -16,7 +16,7 @@ export default {
   components: { GenericAsync, CWSpaceCardView },
   data() {
     return {
-      dataSource: cwspaceAPI.getAll(),
+      dataSource: cwspaceAPI.getByManager(parseInt(localStorage.getItem("id"))),
       dataName: "coworking spaces datas"
     };
   }

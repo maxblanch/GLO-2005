@@ -3,7 +3,11 @@
     <v-container>
       <v-layout justify-center>
         <div>
-          <img :src="cwspace.imageUrl" alt="iorem" height="420px" />
+          <img
+            :src="cwspace.imageUrl"
+            alt="iorem"
+            style="max-width: 350px; margin: auto"
+          />
           <h1 class="white--text">
             {{ manager.username }}'s {{ cwspace.name }}
           </h1>
