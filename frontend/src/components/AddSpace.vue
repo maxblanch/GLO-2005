@@ -193,12 +193,12 @@ export default {
         month_price: parseInt(this.pricePerMonth)
       };
 
-      console.log("creating workspace");
-      console.log(cwspace);
-
       cwspaceAPI
         .addSpace(cwspace)
-        .then(res => console.log(res))
+        .then(({ data }) => {
+          console.log(data);
+          this.$router.push(`/cwspace/${data.cws_id}`);
+        })
         .catch(err => {
           console.log(err.response);
           alert(err.response.data.msg);
