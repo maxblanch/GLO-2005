@@ -11,7 +11,7 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
-          <v-btn flat>
+          <v-btn flat to="/about">
             <v-icon left>question_answer</v-icon>
             <span>About</span>
           </v-btn>
