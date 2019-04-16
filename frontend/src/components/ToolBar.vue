@@ -41,13 +41,25 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>{{ currentUser }}</v-list-tile-title>
+              <v-list-tile-title
+                >{{ accountType }} {{ currentUser }}</v-list-tile-title
+              >
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-toolbar>
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
+
+        <v-list-tile v-if="isManager" to="/cwspaces">
+          <v-list-tile-action>
+            <v-icon>search</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Your Workspaces</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
         <v-list-tile
           v-for="item in items"
@@ -95,6 +107,12 @@ export default {
     },
     currentUser: function() {
       return this.$store.getters.currentUser;
+    },
+    accountType: function() {
+      return this.$store.getters.accountType;
+    },
+    isManager: function() {
+      return this.accountType === "manager";
     }
   },
   methods: {
@@ -122,9 +140,7 @@ export default {
     };
   },
   name: "ToolBar",
-  props: {
-    title: String
-  }
+  props: ["title"]
 };
 </script>
 

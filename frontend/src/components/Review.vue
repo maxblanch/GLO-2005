@@ -9,34 +9,57 @@
             {{ review.comment }}
           </p>
           <p class="white--text">
-            Review left by{{ author.username }} on {{ review.date }}
+            Review left by: {{ author.username }} on: {{ review.date }}
           </p>
+
+          <h2 class="white--text">
+            {{ manager.username }} replied to this review
+          </h2>
+          <p class="white--text">
+            {{ reply.comment }}
+          </p>
+
+          <WriteReply v-if="isOwner"></WriteReply>
         </div>
       </v-layout>
     </v-container>
   </v-layout>
-  <!--  <div class="elevation-10">-->
-  <!--    <h1 class="white&#45;&#45;text">"{{ review.title }}"</h1>-->
-  <!--    <h1 class="white&#45;&#45;text">-->
-  <!--      {{ author.username }}-->
-  <!--    </h1>-->
-  <!--  </div>-->
 </template>
 
 <script>
 import CoworkerAPI from "../api/coworker";
+import cwspaceAPI from "../api/cwspaces";
+import WriteReply from "@/components/WriteReply";
 export default {
   name: "Review",
-  props: ["review"],
+  components: { WriteReply },
+  props: ["review", "manager"],
   data() {
-    return { author: {} };
+    return { author: {}, reply: {} };
   },
   mounted() {
-    CoworkerAPI.get(this.review.coworkerId).then(this.setAuthor);
+    CoworkerAPI.get(this.review.coworkerId)
+      .then(this.setReviewAuthor)
+      .catch(({ response }) => console.log(response.data.message));
+    cwspaceAPI
+      .getReply(this.review.reviewId)
+      .then(this.setReply)
+      .catch(({ response }) => console.log(response.data.message));
   },
   methods: {
-    setAuthor(author) {
+    setReviewAuthor(author) {
       this.author = author;
+    },
+    setReply(reply) {
+      this.reply = reply;
+    }
+  },
+  computed: {
+    currentUser: function() {
+      return this.$store.getters.currentUser;
+    },
+    isOwner: function() {
+      return this.currentUser === this.manager.managerId;
     }
   }
 };

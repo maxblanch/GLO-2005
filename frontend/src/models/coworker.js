@@ -4,12 +4,12 @@ const coworker = {
       address: coworkerData.address,
       city: coworkerData.city,
       country: coworkerData.country,
-      coworkerId: coworkerData.coworkerId,
+      coworkerId: coworkerData.coworker_id,
       email: coworkerData.email,
       firstName: coworkerData.firstName,
       gender: coworkerData.gender,
       lastName: coworkerData.lastName,
-      postalArea: coworkerData.postalArea,
+      postalArea: coworkerData.postal_area,
       state: coworkerData.state,
       username: coworkerData.username
     };

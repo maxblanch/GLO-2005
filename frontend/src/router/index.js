@@ -5,7 +5,7 @@ import Cities from "@/components/Cities";
 import LogInView from "@/components/LogInView";
 import SignUpView from "@/components/SignUpView";
 import CWSpacePage from "@/components/CWSpacePage";
-import CWSpaceCard from "@/components/CWSpaceCard";
+import CWSpaceAll from "@/components/CWSpaceAll";
 import SearchResults from "@/components/SearchResults";
 import City from "@/components/City";
 
@@ -45,8 +45,8 @@ export default new Router({
     },
     {
       path: "/cwspaces/",
-      name: "CWSpaceCard",
-      component: CWSpaceCard
+      name: "CWSpaceAll",
+      component: CWSpaceAll
     },
     {
       path: "/search/:query",

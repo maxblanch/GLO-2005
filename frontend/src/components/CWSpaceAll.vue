@@ -12,7 +12,7 @@ import cwspaceAPI from "@/api/cwspaces";
 import GenericAsync from "@/components/utils/Async/GenericAsync";
 
 export default {
-  name: "CWSpaceCard",
+  name: "CWSpaceAll",
   components: { GenericAsync, CWSpaceCardView },
   data() {
     return {
