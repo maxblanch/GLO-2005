@@ -5,8 +5,7 @@
         <v-layout justify-center>
           <div>
             <h1 class="white--text">
-              Find your <span style="color: #42b983">Perfect</span> Coworking
-              Space
+              Find your <span>Perfect</span> Coworking Space
             </h1>
             <SearchBar></SearchBar>
           </div>
@@ -24,4 +23,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+span {
+  color: #42b983;
+}
+</style>
