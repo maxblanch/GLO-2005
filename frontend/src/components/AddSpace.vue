@@ -124,6 +124,7 @@
 <script>
 import { countries } from "../utils/countries";
 import currencyAPI from "../utils/currencies";
+import cwspaceAPI from "@/api/cwspaces";
 
 export default {
   name: "AddSpace",
@@ -152,11 +153,11 @@ export default {
       imageUrlRules: [v => !!v || "Image Url is required"],
       currency: "",
       currencyRules: [v => !!v || "Currency is required"],
-      pricePerDay: "",
+      pricePerDay: "18",
       pricePerDayRules: [v => !!v || "Price per day is required"],
-      pricePerWeek: "",
+      pricePerWeek: "205",
       pricePerWeekRules: [v => !!v || "Price per week is required"],
-      pricePerMonth: "",
+      pricePerMonth: "350",
       pricePerMonthRules: [v => !!v || "Price per month is required"],
 
       currencies: currencyAPI.get(),
@@ -182,6 +183,14 @@ export default {
         week_price: this.pricePerWeek,
         month_price: this.pricePerMonth
       };
+
+      cwspaceAPI
+        .addSpace(cwspace)
+        .then(res => console.log(res))
+        .catch(err => {
+          console.log(err.response);
+          alert(err.response.data.message);
+        });
     }
   }
 };
