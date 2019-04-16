@@ -143,9 +143,9 @@ export default {
       stateRules: [v => !!v || "State is required"],
       country: "Canada",
       countryRules: [v => !!v || "Country is required"],
-      latitude: 12.3212,
+      latitude: "12.3212",
       latitudeRules: [v => !!v || "Latitude is required"],
-      longitude: 11.1231,
+      longitude: "11.1231",
       longitudeRules: [v => !!v || "Longitude is required"],
       description: "hehe boi",
       descriptionRules: [v => !!v || "Description is required"],
@@ -174,22 +174,24 @@ export default {
         city: this.city,
         state: this.state,
         country: this.country,
-        latitude: this.latitude,
-        longitude: this.longitude,
+        latitude: parseInt(this.latitude),
+        longitude: parseInt(this.longitude),
         description: this.description,
         image_url: this.imageUrl,
         currency: this.currency,
-        day_price: this.pricePerDay,
-        week_price: this.pricePerWeek,
-        month_price: this.pricePerMonth
+        day_price: parseInt(this.pricePerDay),
+        week_price: parseInt(this.pricePerWeek),
+        month_price: parseInt(this.pricePerMonth)
       };
 
+      console.log("creating workspace");
+      console.log(cwspace);
       cwspaceAPI
         .addSpace(cwspace)
         .then(res => console.log(res))
         .catch(err => {
           console.log(err.response);
-          alert(err.response.data.message);
+          alert(err.response.data.msg);
         });
     }
   }
