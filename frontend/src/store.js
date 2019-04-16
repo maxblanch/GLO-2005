@@ -8,18 +8,20 @@ export default new Vuex.Store({
   state: {
     status: "",
     token: localStorage.getItem("token") || "",
-    user: localStorage.getItem("username") || "",
-    type: localStorage.getItem("accountType") || ""
+    username: localStorage.getItem("username") || "",
+    type: localStorage.getItem("accountType") || "",
+    id: localStorage.getItem("id") || ""
   },
   mutations: {
     auth_request(state) {
       state.status = "loading";
     },
-    auth_success(state, { token, user, type }) {
+    auth_success(state, { token, username, type, id }) {
       state.status = "success";
       state.token = token;
-      state.user = user;
+      state.username = username;
       state.type = type;
+      state.id = id;
     },
     auth_error(state) {
       state.status = "error";
@@ -27,8 +29,9 @@ export default new Vuex.Store({
     logout(state) {
       state.status = "";
       state.token = "";
-      state.user = "";
+      state.username = "";
       state.type = "";
+      state.id = -1;
     }
   },
   actions: {
@@ -42,14 +45,16 @@ export default new Vuex.Store({
         })
           .then(resp => {
             const token = resp.data.access_token;
-            const user = JSON.parse(resp.config.data).username;
+            const username = JSON.parse(resp.config.data).username;
             const type = resp.data.type;
+            const id = resp.data.id;
             localStorage.setItem("token", token);
-            localStorage.setItem("username", user);
+            localStorage.setItem("username", username);
             localStorage.setItem("accountType", type);
+            localStorage.setItem("id", id);
 
             axios.defaults.headers.common["Authorization"] = token;
-            commit("auth_success", { token, user, type });
+            commit("auth_success", { token, username, type });
             resolve(resp);
           })
           .catch(err => {
@@ -57,6 +62,8 @@ export default new Vuex.Store({
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             localStorage.removeItem("accountType");
+            localStorage.removeItem("id");
+
             reject(err);
           });
       });
@@ -77,14 +84,16 @@ export default new Vuex.Store({
             })
               .then(resp => {
                 const token = resp.data.access_token;
-                const user = JSON.parse(resp.config.data).username;
+                const username = JSON.parse(resp.config.data).username;
                 const type = resp.data.type;
+                const id = resp.data.id;
                 localStorage.setItem("token", token);
-                localStorage.setItem("username", user);
+                localStorage.setItem("username", username);
                 localStorage.setItem("accountType", type);
+                localStorage.setItem("id", id);
 
                 axios.defaults.headers.common["Authorization"] = token;
-                commit("auth_success", { token, user, type });
+                commit("auth_success", { token, username, type });
                 resolve(resp);
               })
               .catch(err => {
@@ -92,6 +101,7 @@ export default new Vuex.Store({
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
                 localStorage.removeItem("accountType");
+                localStorage.removeItem("id");
                 reject(err);
               });
           })
@@ -100,6 +110,7 @@ export default new Vuex.Store({
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             localStorage.removeItem("accountType");
+            localStorage.removeItem("id");
             reject(err);
           });
       });
@@ -120,14 +131,16 @@ export default new Vuex.Store({
             })
               .then(resp => {
                 const token = resp.data.access_token;
-                const user = JSON.parse(resp.config.data).username;
+                const username = JSON.parse(resp.config.data).username;
                 const type = resp.data.type;
+                const id = resp.data.id;
                 localStorage.setItem("token", token);
-                localStorage.setItem("username", user);
+                localStorage.setItem("username", username);
                 localStorage.setItem("accountType", type);
+                localStorage.setItem("id", id);
 
                 axios.defaults.headers.common["Authorization"] = token;
-                commit("auth_success", { token, user, type });
+                commit("auth_success", { token, username, type });
                 resolve(resp);
               })
               .catch(err => {
@@ -135,6 +148,7 @@ export default new Vuex.Store({
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
                 localStorage.removeItem("accountType");
+                localStorage.removeItem("id");
                 reject(err);
               });
           })
@@ -143,6 +157,7 @@ export default new Vuex.Store({
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             localStorage.removeItem("accountType");
+            localStorage.removeItem("id");
             reject(err);
           });
       });
@@ -161,7 +176,8 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
-    currentUser: state => state.user,
-    accountType: state => state.type
+    currentUser: state => state.username,
+    accountType: state => state.type,
+    userId: state => state.id
   }
 });

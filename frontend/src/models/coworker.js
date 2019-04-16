@@ -6,9 +6,9 @@ const coworker = {
       country: coworkerData.country,
       coworkerId: coworkerData.coworker_id,
       email: coworkerData.email,
-      firstName: coworkerData.firstName,
+      firstName: coworkerData.first_name,
       gender: coworkerData.gender,
-      lastName: coworkerData.lastName,
+      lastName: coworkerData.last_name,
       postalArea: coworkerData.postal_area,
       state: coworkerData.state,
       username: coworkerData.username

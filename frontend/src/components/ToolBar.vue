@@ -11,6 +11,11 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
+          <v-btn v-if="isLoggedIn" flat :to="myAccount">
+            <v-icon left>account_circle</v-icon>
+            <span>My Account</span>
+          </v-btn>
+
           <v-btn flat to="/about">
             <v-icon left>question_answer</v-icon>
             <span>About</span>
@@ -58,6 +63,16 @@
 
           <v-list-tile-content>
             <v-list-tile-title>Your Workspaces</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile v-if="isLoggedIn" :to="myAccount">
+          <v-list-tile-action>
+            <v-icon>account_circle</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>My Account</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -113,6 +128,9 @@ export default {
     },
     isManager: function() {
       return this.accountType === "manager";
+    },
+    myAccount: function() {
+      return `/${this.currentUser}`;
     }
   },
   methods: {
