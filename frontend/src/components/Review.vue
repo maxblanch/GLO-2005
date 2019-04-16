@@ -11,6 +11,7 @@
           <p class="white--text">
             Review left by{{ author.username }} on {{ review.date }}
           </p>
+          <WriteReply></WriteReply>
         </div>
       </v-layout>
     </v-container>
@@ -19,8 +20,10 @@
 
 <script>
 import CoworkerAPI from "../api/coworker";
+import WriteReply from "@/components/WriteReply";
 export default {
   name: "Review",
+  components: { WriteReply },
   props: ["review"],
   data() {
     return { author: {} };

@@ -51,6 +51,16 @@
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
+        <v-list-tile v-if="isManager" to="/cwspaces">
+          <v-list-tile-action>
+            <v-icon>search</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Your Workspaces</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
         <v-list-tile
           v-for="item in items"
           :key="item.title"
@@ -100,6 +110,9 @@ export default {
     },
     accountType: function() {
       return this.$store.getters.accountType;
+    },
+    isManager: function() {
+      return this.accountType === "manager";
     }
   },
   methods: {
