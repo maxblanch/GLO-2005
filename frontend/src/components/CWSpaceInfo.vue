@@ -3,7 +3,7 @@
     <v-container>
       <v-layout justify-center>
         <div>
-          <img :src="cwspace.imageUrl" alt="iorem" />
+          <img :src="cwspace.imageUrl" alt="iorem" height="420px" />
           <h1 class="white--text">
             {{ manager.username }}'s {{ cwspace.name }}
           </h1>
@@ -14,6 +14,7 @@
           <h3 class="white--text">{{ cwspace.description }}</h3>
 
           <v-data-table
+            style="max-width: 350px; margin: auto"
             :headers="headers"
             :items="options"
             class="elevation-1"
