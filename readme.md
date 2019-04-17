@@ -16,3 +16,9 @@ Par exemple `http://192.168.99.100:5000`
 
 Ceci est nécessaire pour que l'api flask soit accessible sans le frontend, afin de voir les différentes routes implémenté avec MySql.
 
+Vous n'avez qu'à faire un search and replace all afin de faire ceci.
+
+Sinon, ces addresse se trouve dans 
+- `./frontend/src/api/constants.js`
+- `./frontend/src/store.js`
+
