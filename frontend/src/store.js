@@ -180,10 +180,5 @@ export default new Vuex.Store({
     currentUser: state => state.username,
     accountType: state => state.type,
     userId: state => state.id
-
-    // isLoggedIn: () => localStorage.getItem("token"),
-    // currentUser: () => localStorage.getItem("username"),
-    // accountType: () => localStorage.getItem("accountType"),
-    // userId: () => localStorage.getItem("id")
   }
 });

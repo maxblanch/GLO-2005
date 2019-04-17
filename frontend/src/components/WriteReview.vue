@@ -90,8 +90,8 @@ export default {
         .catch(({ response }) => alert(response.data.message));
     },
 
-    onReviewPosted(event) {
-      this.$emit("reviewposted", event);
+    onReviewPosted(eventData) {
+      this.$emit("reviewposted", eventData);
     }
   }
 };

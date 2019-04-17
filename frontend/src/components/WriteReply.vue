@@ -40,7 +40,13 @@ export default {
   methods: {
     postReply() {
       const reply = { review_id: this.reviewId, comment: this.reply };
-      cwspaceAPI.postReply(reply);
+      cwspaceAPI
+        .postReply(reply)
+        .then(({ data }) => this.onReplyPosted(data))
+        .catch(({ response }) => alert(response.data.message));
+    },
+    onReplyPosted(eventData) {
+      this.$emit("replyposted", eventData);
     }
   }
 };

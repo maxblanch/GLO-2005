@@ -58,9 +58,6 @@ export default {
     goToSpace(id) {
       this.$router.push(`/cwspace/${id}`);
     }
-  },
-  mounted() {
-    console.log(this.cwspaces);
   }
 };
 </script>

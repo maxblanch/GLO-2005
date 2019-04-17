@@ -19,7 +19,11 @@
             {{ reply.comment }}
           </p>
 
-          <WriteReply v-if="isOwner" :reviewId="review.reviewId"></WriteReply>
+          <WriteReply
+            v-if="isOwner"
+            @replyposted="handleNewReplyPosted"
+            :reviewId="review.reviewId"
+          ></WriteReply>
         </div>
       </v-layout>
     </v-container>
@@ -55,6 +59,9 @@ export default {
     },
     setReply(reply) {
       this.reply = reply;
+    },
+    handleNewReplyPosted(eventData) {
+      this.$emit("replyposted", eventData);
     }
   },
   computed: {

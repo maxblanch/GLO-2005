@@ -4,7 +4,11 @@
       {{ reviews.errorMessage }}
     </h1>
     <div v-else v-for="review in reviews">
-      <Review :review="review" :manager="manager"></Review>
+      <Review
+        :review="review"
+        @replyposted="handleNewReplyPosted"
+        :manager="manager"
+      ></Review>
     </div>
     <v-spacer></v-spacer>
   </div>
@@ -15,7 +19,12 @@ import Review from "@/components/Review";
 export default {
   name: "Reviews",
   components: { Review },
-  props: ["reviews", "manager"]
+  props: ["reviews", "manager"],
+  methods: {
+    handleNewReplyPosted(eventData) {
+      this.$emit("replyposted", eventData);
+    }
+  }
 };
 </script>
 
