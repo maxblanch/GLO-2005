@@ -4,9 +4,10 @@ RUN mkdir app
 
 WORKDIR /app
 
-COPY ./src/requirements.txt .
+COPY ./app .
 
-RUN pip --no-cache-dir install -r requirements.txt
+RUN pip install pipenv
+RUN pipenv install --system --deploy --ignore-pipfile
 
 EXPOSE 5000
 
