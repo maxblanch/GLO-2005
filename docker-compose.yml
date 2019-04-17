@@ -20,4 +20,16 @@ services:
       - "3306:3306"
     volumes:
       - ./bd_init:/docker-entrypoint-initdb.d/:ro
+
+  vuejs:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+     - flask
+    links:
+     - flask
     
