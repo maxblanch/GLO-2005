@@ -26,7 +26,7 @@ export default {
     return {
       RequestState,
       LargeSpinner,
-      error: `Unable to fetch ${this.dataName} at this time.`
+      error: `No ${this.dataName} found`
     };
   },
   components: {

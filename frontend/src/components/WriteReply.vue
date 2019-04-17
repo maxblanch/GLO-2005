@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       valid: false,
-      reply: "no buli",
+      reply: "",
       replyRules: [v => !!v || "Reply is required"]
     };
   },

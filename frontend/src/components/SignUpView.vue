@@ -4,7 +4,7 @@
       <v-flex xs12 sm4 elevation-6 style="max-width: 80%">
         <v-toolbar class="pt-5 primary darken-1">
           <v-toolbar-title class="white--text"
-            ><h4>Welcome to the family, son!</h4></v-toolbar-title
+            ><h4>Welcome to WeShare !</h4></v-toolbar-title
           >
         </v-toolbar>
         <v-card>
@@ -135,11 +135,11 @@ export default {
       valid: false,
       e1: true,
 
-      firstName: "Saucy",
+      firstName: "",
       firstNameRules: [v => !!v || "First name is required"],
-      lastName: "Jack",
+      lastName: "",
       lastNameRules: [v => !!v || "Last name is required"],
-      email: "yeehaw@gmail.com",
+      email: "",
       emailRules: [
         v => !!v || "E-mail is required",
         v =>
@@ -148,19 +148,19 @@ export default {
       ],
       gender: "",
       genderRules: [v => !!v || "Gender is required"],
-      username: "Ashen One5",
+      username: "",
       usernameRules: [v => !!v || "Username is required"],
-      password: "sekiro",
+      password: "",
       passwordRules: [v => !!v || "Password is required"],
-      address: "3675 Avenue des Caryas",
+      address: "",
       addressRules: [v => !!v || "Address is required"],
-      postalArea: "G1G 3G2",
+      postalArea: "",
       postalAreaRules: [v => !!v || "Postal area is required"],
-      city: "Quebec",
+      city: "",
       cityRules: [v => !!v || "City is required"],
-      state: "Quebec",
+      state: "",
       stateRules: [v => !!v || "State is required"],
-      country: "Canada",
+      country: "",
       countryRules: [v => !!v || "Country is required"],
       accountType: "",
       accountTypeRules: [v => !!v || "Account type is required"],

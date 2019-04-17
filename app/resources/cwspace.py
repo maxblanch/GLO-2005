@@ -70,8 +70,10 @@ class CwspaceAdd(Resource):
         data['address'], data['image_url'], data['currency'], data['day_price'],
         data['description'], data['postal_area'], data['city'], data['state'], 
         data['country'], data['week_price'], data['month_price'], token_data[1])
-
-        cwspace.save_to_db()
+        try:
+            cwspace.save_to_db()
+        except:
+            return {'message': 'A coworking space already has this address'}
         last_cws = CoworkingSpacesModel.get_last_id()
         return {"message": f"Coworking Space created successfully.",
                 "cws_id": last_cws.cws_id}, 201
