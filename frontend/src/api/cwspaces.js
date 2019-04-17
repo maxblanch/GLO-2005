@@ -39,7 +39,10 @@ const postReview = review =>
     method: "POST",
     url: reviewsRoot,
     data: review,
-    headers: Headers
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    }
   });
 
 const addSpace = cwspace =>
@@ -47,7 +50,10 @@ const addSpace = cwspace =>
     method: "POST",
     url: cwspaceRoot,
     data: cwspace,
-    headers: Headers
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    }
   });
 
 export default {
