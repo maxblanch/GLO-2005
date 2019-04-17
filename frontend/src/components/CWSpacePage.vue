@@ -4,7 +4,11 @@
       <CWSpaceInfo :cwspace="cwspace" :manager="manager" />
     </AsyncContent>
     <AsyncContent :request-state="requestState" dataName="reviews info">
-      <Reviews :reviews="reviews" :manager="manager" />
+      <Reviews
+        :reviews="reviews"
+        :manager="manager"
+        @replyposted="handleNewReplyPosted"
+      />
     </AsyncContent>
     <AsyncContent :request-state="requestState" dataName="cwspace info">
       <WriteReview
@@ -45,15 +49,11 @@ export default {
       .getReviews(this.id)
       .then(this.setReviews)
       .catch(this.setReviewError);
-
-    cwspaceAPI
-      .get(this.id)
-      .then(res => ManagerAPI.get(res.managerId).then(this.setManager))
-      .catch(({ response }) => console.log(response.data.message));
   },
   methods: {
     setCWSpace(cwspace) {
       this.cwspace = cwspace;
+      ManagerAPI.get(cwspace.managerId).then(this.setManager);
       this.requestState = RequestState.LOADED;
     },
     setReviews(reviews) {
@@ -71,9 +71,17 @@ export default {
       console.log(_err.response.data.message);
       this.reviews = { Error: true, errorMessage: _err.response.data.message };
     },
-    handleNewReviewPosted(value) {
+    handleNewReviewPosted(eventData) {
       cwspaceAPI
-        .getReviews(value.cws_id)
+        .getReviews(eventData.cws_id)
+        .then(this.setReviews)
+        .catch(this.setReviewError);
+    },
+    handleNewReplyPosted(eventData) {
+      alert(eventData.message);
+
+      cwspaceAPI
+        .getReviews(this.id)
         .then(this.setReviews)
         .catch(this.setReviewError);
     }

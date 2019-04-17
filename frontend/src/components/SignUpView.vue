@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import { countries } from "../assets/countries";
+import { countries } from "../utils/countries";
 
 export default {
   name: "SignUpView",

@@ -12,14 +12,18 @@
             Review left by: {{ author.username }} on: {{ review.date }}
           </p>
 
-          <h2 class="white--text">
+          <h2 class="white--text" v-if="hasReply">
             {{ manager.username }} replied to this review
           </h2>
-          <p class="white--text">
+          <p class="white--text" v-if="hasReply">
             {{ reply.comment }}
           </p>
 
-          <WriteReply v-if="isOwner"></WriteReply>
+          <WriteReply
+            v-if="isOwner"
+            @replyposted="handleNewReplyPosted"
+            :reviewId="review.reviewId"
+          ></WriteReply>
         </div>
       </v-layout>
     </v-container>
@@ -35,7 +39,7 @@ export default {
   components: { WriteReply },
   props: ["review", "manager"],
   data() {
-    return { author: {}, reply: {} };
+    return { author: {}, reply: {}, hasReply: true };
   },
   mounted() {
     CoworkerAPI.get(this.review.coworkerId)
@@ -44,7 +48,10 @@ export default {
     cwspaceAPI
       .getReply(this.review.reviewId)
       .then(this.setReply)
-      .catch(({ response }) => console.log(response.data.message));
+      .catch(({ response }) => {
+        this.hasReply = false;
+        console.log(response.data.message);
+      });
   },
   methods: {
     setReviewAuthor(author) {
@@ -52,14 +59,36 @@ export default {
     },
     setReply(reply) {
       this.reply = reply;
+    },
+    handleNewReplyPosted(eventData) {
+      this.$emit("replyposted", eventData);
     }
   },
   computed: {
     currentUser: function() {
       return this.$store.getters.currentUser;
     },
+    accountType: function() {
+      return this.$store.getters.accountType;
+    },
+    userId: function() {
+      return this.$store.getters.userId;
+    },
+    isManager: function() {
+      return this.accountType === "manager";
+    },
+    isCoworker: function() {
+      return this.accountType === "coworker";
+    },
     isOwner: function() {
-      return this.currentUser === this.manager.managerId;
+      let test = false;
+
+      if (this.isManager)
+        test = this.userId === this.manager.managerId.toString();
+
+      console.log(test);
+
+      return test;
     }
   }
 };

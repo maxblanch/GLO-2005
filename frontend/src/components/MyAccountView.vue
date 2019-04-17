@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <v-layout row wrap v-for="item in items">
+    <v-layout row wrap v-for="item in items" :key="item.title">
       <v-flex xs6>
         <h2 class="white--text">{{ item.title }}</h2>
       </v-flex>

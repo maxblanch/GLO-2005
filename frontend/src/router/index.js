@@ -10,6 +10,8 @@ import SearchResults from "@/components/SearchResults";
 import City from "@/components/City";
 import About from "@/components/About";
 import MyAccount from "@/components/MyAccount";
+import AddSpace from "@/components/AddSpace";
+import MySpaces from "@/components/MySpaces";
 
 Vue.use(Router);
 
@@ -49,6 +51,16 @@ export default new Router({
       path: "/cwspaces/",
       name: "CWSpaceAll",
       component: CWSpaceAll
+    },
+    {
+      path: "/mySpaces/",
+      name: "MySpaces",
+      component: MySpaces
+    },
+    {
+      path: "/addSpace",
+      name: "AddSpace",
+      component: AddSpace
     },
     {
       path: "/search/:query",

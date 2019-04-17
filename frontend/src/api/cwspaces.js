@@ -20,6 +20,11 @@ const getByCity = city =>
 const get = cwsId =>
   axios.get(`${cwspaceRoot}/${cwsId}`).then(({ data }) => cwspace.from(data));
 
+const getByManager = managerId =>
+  axios
+    .get(cwspacesRoot)
+    .then(({ data }) => cwspaces.fromManager(data, managerId));
+
 const getReviews = cwsId =>
   axios.get(`${reviewsRoot}/${cwsId}`).then(({ data }) => reviews.from(data));
 
@@ -40,17 +45,37 @@ const postReview = review =>
     }
   });
 
+const postReply = reply =>
+  axios({
+    method: "POST",
+    url: replyRoot,
+    data: reply,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    }
+  });
+
+const addSpace = cwspace =>
+  axios({
+    method: "POST",
+    url: cwspaceRoot,
+    data: cwspace,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    }
+  });
+
 export default {
   getAll,
   getByCity,
   get,
   getReviews,
+  getByManager,
   search,
   postReview,
-  getReply
-  // computed: {
-  //   isLoggedIn: function() {
-  //     return this.$store.getters.isLoggedIn;
-  //   }
-  // }
+  postReply,
+  getReply,
+  addSpace
 };
