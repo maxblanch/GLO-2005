@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import cwspaceAPI from "@/api/cwspaces";
+
 export default {
   name: "WriteReply",
   props: ["reviewId"],
@@ -38,7 +40,7 @@ export default {
   methods: {
     postReply() {
       const reply = { review_id: this.reviewId, comment: this.reply };
-      alert(reply);
+      cwspaceAPI.postReply(reply);
     }
   }
 };
