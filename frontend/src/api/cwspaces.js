@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiRoot, Headers } from "@/api/constants";
+import { apiRoot } from "@/api/constants";
 import cwspaces from "../models/cwspaces";
 import cwspace from "../models/cwspace";
 import reviews from "../models/reviews";
@@ -45,6 +45,17 @@ const postReview = review =>
     }
   });
 
+const postReply = reply =>
+  axios({
+    method: "POST",
+    url: replyRoot,
+    data: reply,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json"
+    }
+  });
+
 const addSpace = cwspace =>
   axios({
     method: "POST",
@@ -64,6 +75,7 @@ export default {
   getByManager,
   search,
   postReview,
+  postReply,
   getReply,
   addSpace
 };

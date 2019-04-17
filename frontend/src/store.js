@@ -8,9 +8,6 @@ export default new Vuex.Store({
   state: {
     status: "",
     token: localStorage.getItem("token") || "",
-    // username: "",
-    // type: "",
-    // id: ""
     username: localStorage.getItem("username") || "",
     type: localStorage.getItem("accountType") || "",
     id: localStorage.getItem("id") || ""
@@ -183,5 +180,10 @@ export default new Vuex.Store({
     currentUser: state => state.username,
     accountType: state => state.type,
     userId: state => state.id
+
+    // isLoggedIn: () => localStorage.getItem("token"),
+    // currentUser: () => localStorage.getItem("username"),
+    // accountType: () => localStorage.getItem("accountType"),
+    // userId: () => localStorage.getItem("id")
   }
 });

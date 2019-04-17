@@ -45,15 +45,11 @@ export default {
       .getReviews(this.id)
       .then(this.setReviews)
       .catch(this.setReviewError);
-
-    cwspaceAPI
-      .get(this.id)
-      .then(res => ManagerAPI.get(res.managerId).then(this.setManager))
-      .catch(({ response }) => console.log(response.data.message));
   },
   methods: {
     setCWSpace(cwspace) {
       this.cwspace = cwspace;
+      ManagerAPI.get(cwspace.managerId).then(this.setManager);
       this.requestState = RequestState.LOADED;
     },
     setReviews(reviews) {

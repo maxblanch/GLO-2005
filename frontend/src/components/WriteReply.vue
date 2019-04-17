@@ -27,6 +27,7 @@
 <script>
 export default {
   name: "WriteReply",
+  props: ["reviewId"],
   data() {
     return {
       valid: false,
@@ -36,7 +37,8 @@ export default {
   },
   methods: {
     postReply() {
-      alert(this.reply);
+      const reply = { review_id: this.reviewId, comment: this.reply };
+      alert(reply);
     }
   }
 };

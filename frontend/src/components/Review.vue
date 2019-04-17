@@ -19,7 +19,7 @@
             {{ reply.comment }}
           </p>
 
-          <WriteReply v-if="isOwner"></WriteReply>
+          <WriteReply v-if="isOwner" :reviewId="review.reviewId"></WriteReply>
         </div>
       </v-layout>
     </v-container>
@@ -61,8 +61,27 @@ export default {
     currentUser: function() {
       return this.$store.getters.currentUser;
     },
+    accountType: function() {
+      return this.$store.getters.accountType;
+    },
+    userId: function() {
+      return this.$store.getters.userId;
+    },
+    isManager: function() {
+      return this.accountType === "manager";
+    },
+    isCoworker: function() {
+      return this.accountType === "coworker";
+    },
     isOwner: function() {
-      return this.currentUser === this.manager.managerId;
+      let test = false;
+
+      if (this.isManager)
+        test = this.userId === this.manager.managerId.toString();
+
+      console.log(test);
+
+      return test;
     }
   }
 };
