@@ -4,7 +4,7 @@
       <v-container fluid grid-list-lg style="max-width: 80%; ">
         <v-layout row wrap>
           <v-flex xs12 v-for="cwspace in cwspaces" v-if="cwspace">
-            <v-card class="white--text elevation-10 grey darken-3">
+            <v-card class="white--text elevation-10 grey darken-3 cwspace-card">
               <v-layout @click="goToSpace(cwspace.cwsId)">
                 <v-flex xs5>
                   <v-img
@@ -18,7 +18,7 @@
                   <v-card-title primary-title>
                     <div>
                       <div class="headline">{{ cwspace.name }}</div>
-                      <div class="subheading">{{ cwspace.rating }}</div>
+                      <div class="subheading">{{ cwspace.rating }} ⭐️</div>
                       <div>
                         <v-icon left>location_on</v-icon>
                         <span>
@@ -62,4 +62,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.cwspace-card {
+  cursor: pointer;
+}
+</style>

@@ -4,7 +4,7 @@
       <v-flex xs12 sm4 elevation-6 style="max-width: 80%">
         <v-toolbar class="pt-5 primary darken-1">
           <v-toolbar-title class="white--text"
-            ><h4>Welcome Home, Ashen One</h4></v-toolbar-title
+            ><h4>Welcome back ! Please log in</h4></v-toolbar-title
           >
         </v-toolbar>
         <v-card>
@@ -58,9 +58,9 @@ export default {
     return {
       valid: false,
       e1: true,
-      password: "sekiro",
+      password: "",
       passwordRules: [v => !!v || "Password is required"],
-      username: "Ashen One5",
+      username: "",
       usernameRules: [v => !!v || "Username is required"]
     };
   },

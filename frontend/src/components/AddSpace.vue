@@ -49,18 +49,6 @@
                   menu-props="auto"
                   hide-details
                 ></v-select>
-                <v-text-field
-                  label="Latitude"
-                  v-model="latitude"
-                  :rules="latitudeRules"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="Longitude"
-                  v-model="longitude"
-                  :rules="longitudeRules"
-                  required
-                ></v-text-field>
                 <v-textarea
                   box
                   auto-grow
@@ -84,19 +72,19 @@
                   hide-details
                 ></v-select>
                 <v-text-field
-                  label="Price per day"
+                  label="Price per day (No decimals)"
                   v-model="pricePerDay"
                   :rules="pricePerDayRules"
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Price per week"
+                  label="Price per week (No decimals)"
                   v-model="pricePerWeek"
                   :rules="pricePerWeekRules"
                   required
                 ></v-text-field>
                 <v-text-field
-                  label="Price per month"
+                  label="Price per month (No decimals)"
                   v-model="pricePerMonth"
                   :rules="pricePerMonthRules"
                   required
@@ -140,33 +128,29 @@ export default {
   data() {
     return {
       valid: false,
-      name: "Saucy",
+      name: "",
       nameRules: [v => !!v || "Name is required"],
-      address: "3675 Avenue des Caryas",
+      address: "",
       addressRules: [v => !!v || "Address is required"],
-      postalArea: "G1G 3G2",
+      postalArea: "",
       postalAreaRules: [v => !!v || "Postal area is required"],
-      city: "Quebec",
+      city: "",
       cityRules: [v => !!v || "City is required"],
-      state: "Quebec",
+      state: "",
       stateRules: [v => !!v || "State is required"],
-      country: "Canada",
+      country: "",
       countryRules: [v => !!v || "Country is required"],
-      latitude: "12.3212",
-      latitudeRules: [v => !!v || "Latitude is required"],
-      longitude: "11.1231",
-      longitudeRules: [v => !!v || "Longitude is required"],
-      description: "hehe boi",
+      description: "",
       descriptionRules: [v => !!v || "Description is required"],
       imageUrl: "https://cdn2.thecatapi.com/images/Qjb0fsrDo.jpg",
       imageUrlRules: [v => !!v || "Image Url is required"],
       currency: "",
       currencyRules: [v => !!v || "Currency is required"],
-      pricePerDay: "18",
+      pricePerDay: "",
       pricePerDayRules: [v => !!v || "Price per day is required"],
-      pricePerWeek: "205",
+      pricePerWeek: "",
       pricePerWeekRules: [v => !!v || "Price per week is required"],
-      pricePerMonth: "350",
+      pricePerMonth: "",
       pricePerMonthRules: [v => !!v || "Price per month is required"],
 
       currencies: currencyAPI.get(),

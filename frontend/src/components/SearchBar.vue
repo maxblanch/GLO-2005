@@ -3,7 +3,7 @@
     solo
     prepend-inner-icon="location_on"
     name="searchSpace"
-    placeholder="Search by City, Country or Space..."
+    placeholder="Search by City, State, Country or Name... (ex: Canada)"
     type="text"
     v-model="query"
     @keyup="search"

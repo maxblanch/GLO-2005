@@ -54,9 +54,9 @@ export default {
   data() {
     return {
       valid: false,
-      title: "une titre",
+      title: "",
       titleRules: [v => !!v || "Title is required"],
-      comment: "un commentaire",
+      comment: "",
       commentRules: [v => !!v || "Comment is required"],
       rating: 3,
       ratingRules: [v => !!v || "Rating is required"]
